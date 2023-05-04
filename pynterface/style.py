@@ -9,6 +9,9 @@ class __ResetMethod:
 
     @property
     def RESET_ALL(self):
+        Color.__init__()
+        Background.__init__()
+        Text.__init__()
         return "\033[0m"
 
 class __TextClass(__ResetMethod):

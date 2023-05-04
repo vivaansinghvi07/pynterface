@@ -13,12 +13,12 @@ class __TextClass(__ResetMethod):
 
     def __mod(func):
         def new_func(self):
-            self.status = func(self)
-            return "\033[" + func(self) + ";" + Color.color + "m"
+            self._status = func(self)
+            return "\033[" + func(self) + ";" + Color._status + "m"
         return property(new_func)
     
     def __init__(self):
-        self.status = "0"
+        self._status = "0"
 
     @__mod
     def RESET_STYLE(self): return "0"
@@ -34,11 +34,11 @@ class __ColorClass(__ResetMethod):
     def __mod(func):
         def new_func(self):
             self.color = func(self)
-            return "\033[" + Text.status + ";" + func(self) + "m"
+            return "\033[" + Text._status + ";" + func(self) + "m"
         return property(new_func)
 
     def __init__(self):
-        self.color = "0"
+        self._status = "0"
 
     @__mod
     def RESET_COLOR(self): return "0"
@@ -143,3 +143,10 @@ class __ColorClass(__ResetMethod):
 Color = __ColorClass()
 Text = __TextClass()
 
+if __name__ == "__main__":
+
+    # demo code for colors
+    for name in dir(Color):
+        if name[0] != "_":
+            color_modifier = getattr(Color, name)
+            print(f"{color_modifier}{name}{Color.RESET_COLOR}")

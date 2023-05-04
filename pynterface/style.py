@@ -9,7 +9,7 @@ class __ResetMethod:
     def RESET_ALL(self):
         return "\033[0m"
 
-class __StyleClass(__ResetMethod):
+class __TextClass(__ResetMethod):
 
     def __mod(func):
         def new_func(self):
@@ -34,7 +34,7 @@ class __ColorClass(__ResetMethod):
     def __mod(func):
         def new_func(self):
             self.color = func(self)
-            return "\033[" + Style.status + ";" + func(self) + "m"
+            return "\033[" + Text.status + ";" + func(self) + "m"
         return property(new_func)
 
     def __init__(self):
@@ -141,4 +141,5 @@ class __ColorClass(__ResetMethod):
 
 
 Color = __ColorClass()
-Style = __StyleClass()
+Text = __TextClass()
+

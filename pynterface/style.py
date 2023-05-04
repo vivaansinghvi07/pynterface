@@ -29,10 +29,22 @@ class __TextClass(__ResetMethod):
     def RESET_STYLE(self): return "0"
 
     @__mod
+    def BOLD(self): return "1" 
+
+    @__mod
+    def DIM(self): return "2"
+
+    @__mod
+    def ITALIC(self): return "3"
+
+    @__mod
     def UNDERLINE(self): return "4"
 
     @__mod
-    def BOLD(self): return "1" 
+    def BLINKING(self): return "5"
+
+    @__mod
+    def INVERTED(self): return "7"
 
     @__mod
     def STRIKETHROUGH(self): return "9"

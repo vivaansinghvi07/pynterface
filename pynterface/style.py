@@ -169,28 +169,18 @@ Background = __BackGroundClass()
 
 if __name__ == "__main__":
 
+    # prints examples for each property of the color classes
+    def printing_loop(var):
+        for name in dir(var):
+            if name[0] != "_" and "RESET" not in name:
+                modifier = getattr(var, name)
+                print(f"{modifier}{name}{var.RESET_ALL}")
+
     print(f"{Text.BOLD}Colors:{Text.RESET_STYLE}")
-
-    # demo code for colors
-    for name in dir(Color):
-        if name[0] != "_":
-            color_modifier = getattr(Color, name)
-            print(f"{color_modifier}{name}{Color.RESET_COLOR}")
-
+    printing_loop(Color)
     print(f"{Text.BOLD}Backgrounds:{Text.RESET_STYLE}")
-
-    # demo code for styles
-    for name in dir(Background):
-        if name[0] != "_":
-            text_modifier = getattr(Background, name)
-            print(f"{text_modifier}{name}{Background.RESET_BACKGROUND}")
-
+    printing_loop(Background)
     print(f"{Text.BOLD}Text Styles:{Text.RESET_STYLE}")
+    printing_loop(Text)
 
-    # demo code for styles
-    for name in dir(Text):
-        if name[0] != "_":
-            text_modifier = getattr(Text, name)
-            print(f"{text_modifier}{name}{Text.RESET_STYLE}")
-
-    print(f"{Color.BLUE}{Text.BOLD}{Background.RED_BRIGHT}You can also have a combination of all!{Color.RESET_ALL}")
+    print(f"{Color.BLUE_BRIGHT}{Text.BOLD}{Background.CYAN}You can also have a combination of them all!{Color.RESET_ALL}")

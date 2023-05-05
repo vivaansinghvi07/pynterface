@@ -5,6 +5,7 @@ TODO:
 - Input for lists of numbers
 - Input for 2-d arrays of numbers
 """
+from typing import Any, Union
 
 def bounded_int(lower: int, upper: int, prompt: str = None, 
                 type_error: str = None, bounds_error: str = None) -> int:
@@ -47,3 +48,12 @@ def bounded_int(lower: int, upper: int, prompt: str = None,
             flag_type_error = True
 
     return user_input
+
+def numbered_menu(options: list[Any], prompt: str = None) -> Any:
+    pass
+
+def list_menu(options: list[Any], prompt: str = None) -> Any:
+    pass
+
+def two_dim_array(rows: int, cols: int, delimiter: str = " ") -> list[list[Any]]:
+    pass

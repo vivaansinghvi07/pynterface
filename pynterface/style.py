@@ -110,7 +110,11 @@ class __BackGroundClass(__ResetMethod):
 
     @__mod
     def WHITE_BRIGHT(self): return "107"
-    
+
+    def rgb_color(self, r, g, b):
+        for var in [r, g, b]:
+            assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
+        return f"\033[48;2;{r};{g};{b}m"
 
 class __ColorClass(__ResetMethod):
  
@@ -174,7 +178,10 @@ class __ColorClass(__ResetMethod):
     @__mod
     def WHITE_BRIGHT(self): return "97"
 
-
+    def rgb_color(self, r, g, b):
+        for var in [r, g, b]:
+            assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
+        return f"\033[38;2;{r};{g};{b}m"
 
 Color = __ColorClass()
 Text = __TextClass()

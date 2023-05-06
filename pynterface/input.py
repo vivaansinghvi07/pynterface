@@ -58,7 +58,7 @@ def bounded_int(lower: int, upper: int, prompt: str = None,
 
     return user_input
 
-def numbered_menu(options: list[Any], prompt: str = None) -> Any:
+def numbered_menu(options: list[Any], prompt: str = None, spacing: int = 4) -> Any:
 
     str_options = list(map(__map_to_str, options))
 
@@ -66,11 +66,11 @@ def numbered_menu(options: list[Any], prompt: str = None) -> Any:
         print(prompt)
 
     for index, opt in enumerate(str_options):
-        print(f"\t{index+1}. {opt}")
+        print(f"{' '*spacing}{index+1}. {opt}")
     
     choice = bounded_int(1, len(str_options))
 
-    return options[choice]
+    return options[choice - 1]
 
     
 

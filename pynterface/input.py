@@ -5,7 +5,7 @@ TODO:
 - Input for lists of numbers
 - Input for 2-d arrays of numbers
 """
-from typing import Any
+from typing import Any, Iterable
 
 def __map_to_str(opt):
     if isinstance(opt, (bool, str, float, int)):
@@ -58,7 +58,15 @@ def bounded_int(lower: int, upper: int, prompt: str = None,
 
     return user_input
 
-def numbered_menu(options: list[Any], prompt: str = None, spacing: int = 4) -> Any:
+def numbered_menu(options: Iterable[Any], prompt: str = None, spacing: int = 4) -> Any:
+
+    """
+    Arguments: The list of options to enter, which can include things like classes, functions, or simple datatypes. An optional prompt, and an optional spacing value (how many spaces the options are intended by)
+    """
+
+    assert isinstance(options, Iterable), "List of options must be iterable!"
+    assert len(options) > 0, "You cannot pass in an empty list!"
+    assert isinstance(spacing, int) and spacing >= 0, "Spacing must be a non-negative integer!"
 
     str_options = list(map(__map_to_str, options))
 
@@ -71,7 +79,6 @@ def numbered_menu(options: list[Any], prompt: str = None, spacing: int = 4) -> A
     choice = bounded_int(1, len(str_options))
 
     return options[choice - 1]
-
     
 
 def list_menu(options: list[Any], prompt: str = None) -> Any:

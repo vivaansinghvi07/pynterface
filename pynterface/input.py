@@ -95,8 +95,25 @@ def numbered_menu(options: Iterable[Any], prompt: str = None, spacing: int = 4) 
     return options[choice - 1]
     
 
-def list_menu(options: list[Any], prompt: str = None) -> Any:
+def list_menu(options: list[Any], prompt: str = None, spacing: int = 4, option_selector: str = '-') -> Any:
 
+    """
+    Creates a numbered menu, in the following format:
+    ```
+    '''
+    <prompt>
+        - Option
+        - Option
+        - Option
+    Please enter a number between {lower} and {upper}:
+    '''
+    ```
+    Arguments: The list of options to enter, which can include things like classes, functions, or simple datatypes. An optional prompt, and an optional spacing value (how many spaces the options are intended by).
+
+    Raises: An AssertionError for incompatible types.
+
+    Returns: The choice selected by the user.
+    """
 
     pass
 

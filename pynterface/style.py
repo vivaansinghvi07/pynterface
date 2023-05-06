@@ -3,6 +3,7 @@ All ANSI codes are adapted from w3schools's ANSI colors reference:
 https://www.w3schools.blog/ansi-colors-java
 
 This is my attempt to reproduce colorama's implementation!
+Combinations of styles (backgrounds, colors, and text styles) can be combined.
 """
 
 class __ResetMethod:
@@ -194,5 +195,3 @@ if __name__ == "__main__":
     printing_loop(Background)
     print(f"{Text.BOLD}Text Styles:{Text.RESET_STYLE}")
     printing_loop(Text)
-
-    print(f"{Color.BLUE_BRIGHT}{Text.BOLD}{Background.CYAN}You can also have a combination of them all!{Color.RESET_ALL}")

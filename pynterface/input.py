@@ -5,7 +5,16 @@ TODO:
 - Input for lists of numbers
 - Input for 2-d arrays of numbers
 """
-from typing import Any, Union
+from typing import Any
+
+def __map_to_str(opt):
+    if isinstance(opt, (bool, str, float, int)):
+        return str(opt)
+    try:
+        return opt.__name__
+    except:
+        raise AssertionError("Option type unable to be converted to string using __name__.")
+
 
 def bounded_int(lower: int, upper: int, prompt: str = None, 
                 type_error: str = None, bounds_error: str = None) -> int:
@@ -50,9 +59,24 @@ def bounded_int(lower: int, upper: int, prompt: str = None,
     return user_input
 
 def numbered_menu(options: list[Any], prompt: str = None) -> Any:
-    pass
+
+    str_options = list(map(__map_to_str, options))
+
+    if prompt:
+        print(prompt)
+
+    for index, opt in enumerate(str_options):
+        print(f"\t{index+1}. {opt}")
+    
+    choice = bounded_int(1, len(str_options))
+
+    return options[choice]
+
+    
 
 def list_menu(options: list[Any], prompt: str = None) -> Any:
+
+
     pass
 
 def two_dim_array(rows: int, cols: int, delimiter: str = " ") -> list[list[Any]]:

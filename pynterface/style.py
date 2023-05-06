@@ -15,18 +15,15 @@ class _BaseClass:
 
     @property
     def RESET_ALL(self):
-        Color.__init__()
-        Background.__init__()
-        Text.__init__()
         return "\033[0m"
 
 class __TextClass(_BaseClass):
     
     def __init__(self):
-        self._status = "0"
+        self._status = self.RESET_STYLE
 
     @_BaseClass._modify
-    def RESET_STYLE(self): return "0"
+    def RESET_STYLE(self): return "22"
 
     @_BaseClass._modify
     def BOLD(self): return "1" 
@@ -52,7 +49,7 @@ class __TextClass(_BaseClass):
 class __BackGroundClass(_BaseClass):
     
     def __init__(self):
-        self._status = "49"
+        self._status = self.RESET_BACKGROUND
 
     @_BaseClass._modify
     def RESET_BACKGROUND(self): return "49"
@@ -113,7 +110,7 @@ class __BackGroundClass(_BaseClass):
 class __ColorClass(_BaseClass):
 
     def __init__(self):
-        self._status = "39"
+        self._status = self.RESET_COLOR
 
     @_BaseClass._modify
     def RESET_COLOR(self): return "39"

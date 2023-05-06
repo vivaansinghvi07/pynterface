@@ -192,13 +192,18 @@ if __name__ == "__main__":
     # prints examples for each property of the color classes
     def printing_loop(var):
         for name in dir(var):
-            if name[0] != "_" and "RESET" not in name:
+            if name[0] != "_" and "RESET" not in name and "rgb" not in name:
                 modifier = getattr(var, name)
                 print(f"{modifier}{name}{var.RESET_ALL}")
 
+    # test cases for normal color properties
     print(f"{Text.BOLD}Colors:{Text.RESET_STYLE}")
     printing_loop(Color)
     print(f"{Text.BOLD}Backgrounds:{Text.RESET_STYLE}")
     printing_loop(Background)
     print(f"{Text.BOLD}Text Styles:{Text.RESET_STYLE}")
     printing_loop(Text)
+
+    # test cases for rgb colors
+    print(f"{Color.rgb_color(100, 150, 200)}Color.rgb_color(100, 150, 200){Text.RESET_ALL}")
+    print(f"{Background.rgb_color(200, 100, 100)}Background.rgb_color(200, 100, 100)")

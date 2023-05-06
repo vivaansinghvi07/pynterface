@@ -4,164 +4,72 @@ https://www.w3schools.blog/ansi-colors-java
 
 This is my attempt to reproduce colorama's implementation!
 Combinations of styles (backgrounds, colors, and text styles) are possible.
+This version includes the ability to modify RGB values of colors.
 """
 
-class _BaseClass:
+class __TextClass:
 
-    def _modify(func):
-        def new_func(self):
-            return "\033[" + func(self) + "m"
-        return property(new_func)
+    RESET_ALL =     "\033[0m"
+    RESET_STYLE =   "\033[22m"
 
-    @property
-    def RESET_ALL(self):
-        return "\033[0m"
+    BOLD =          "\033[1m"
+    DIM =           "\033[2m"
+    ITALIC =        "\033[3m"
+    UNDERLINE =     "\033[4m"
+    BLINKING =      "\033[5m"
+    INVERTED =      "\033[7m"
+    STRIKETHROUGH = "\033[9m"
 
-class __TextClass(_BaseClass):
-    
-    def __init__(self):
-        self._status = self.RESET_STYLE
+class __BackGroundClass:
 
-    @_BaseClass._modify
-    def RESET_STYLE(self): return "22"
+    RESET_BACKGROUND =  "\033[49m"
+    RESET_ALL =         "\033[0m"
 
-    @_BaseClass._modify
-    def BOLD(self): return "1" 
+    BLACK =     "\033[40m"
+    RED =       "\033[41m"
+    GREEN =     "\033[42m"
+    YELLOW =    "\033[43m"
+    BLUE =      "\033[44m"
+    PURPLE =    "\033[45m"
+    CYAN =      "\033[46m"
+    WHITE =     "\033[47m"
 
-    @_BaseClass._modify
-    def DIM(self): return "2"
-
-    @_BaseClass._modify
-    def ITALIC(self): return "3"
-
-    @_BaseClass._modify
-    def UNDERLINE(self): return "4"
-
-    @_BaseClass._modify
-    def BLINKING(self): return "5"
-
-    @_BaseClass._modify
-    def INVERTED(self): return "7"
-
-    @_BaseClass._modify
-    def STRIKETHROUGH(self): return "9"
-
-class __BackGroundClass(_BaseClass):
-    
-    def __init__(self):
-        self._status = self.RESET_BACKGROUND
-
-    @_BaseClass._modify
-    def RESET_BACKGROUND(self): return "49"
-
-    @_BaseClass._modify
-    def BLACK(self): return "40"
-
-    @_BaseClass._modify
-    def RED(self): return "41"
-
-    @_BaseClass._modify
-    def GREEN(self): return "42"
-
-    @_BaseClass._modify
-    def YELLOW(self): return "43"
-
-    @_BaseClass._modify
-    def BLUE(self): return "44"
-
-    @_BaseClass._modify
-    def PURPLE(self): return "45"
-
-    @_BaseClass._modify
-    def CYAN(self): return "46"
-
-    @_BaseClass._modify
-    def WHITE(self): return "47"
-
-    @_BaseClass._modify
-    def BLACK_BRIGHT(self): return "100"
-
-    @_BaseClass._modify
-    def RED_BRIGHT(self): return "101"
-
-    @_BaseClass._modify
-    def GREEN_BRIGHT(self): return "102"
-
-    @_BaseClass._modify
-    def YELLOW_BRIGHT(self): return "103"
-
-    @_BaseClass._modify
-    def BLUE_BRIGHT(self): return "104"
-
-    @_BaseClass._modify
-    def PURPLE_BRIGHT(self): return "105"
-
-    @_BaseClass._modify
-    def CYAN_BRIGHT(self): return "106"
-
-    @_BaseClass._modify
-    def WHITE_BRIGHT(self): return "107"
+    BLACK_BRIGHT =     "\033[100m"
+    RED_BRIGHT =       "\033[101m"
+    GREEN_BRIGHT =     "\033[102m"
+    YELLOW_BRIGHT =    "\033[103m"
+    BLUE_BRIGHT =      "\033[104m"
+    PURPLE_BRIGHT =    "\033[105m"
+    CYAN_BRIGHT =      "\033[106m"
+    WHITE_BRIGHT =     "\033[107m"
 
     def rgb_color(self, r, g, b):
         for var in [r, g, b]:
             assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
         return f"\033[48;2;{r};{g};{b}m"
 
-class __ColorClass(_BaseClass):
+class __ColorClass():
 
-    def __init__(self):
-        self._status = self.RESET_COLOR
+    RESET_COLOR =   "\033[39m"
+    RESET_ALL =     "\033[0m"
 
-    @_BaseClass._modify
-    def RESET_COLOR(self): return "39"
+    BLACK =     "\033[30m"
+    RED =       "\033[31m"
+    GREEN =     "\033[32m"
+    YELLOW =    "\033[33m"
+    BLUE =      "\033[34m"
+    PURPLE =    "\033[35m"
+    CYAN =      "\033[36m"
+    WHITE =     "\033[37m"
 
-    @_BaseClass._modify
-    def BLACK(self): return "30"
-    
-    @_BaseClass._modify
-    def RED(self): return "31"
-        
-    @_BaseClass._modify
-    def GREEN(self): return "32"
-    
-    @_BaseClass._modify
-    def YELLOW(self): return "33"
-    
-    @_BaseClass._modify
-    def BLUE(self): return "34"
-    
-    @_BaseClass._modify
-    def PURPLE(self): return "35"
-    
-    @_BaseClass._modify
-    def CYAN(self): return "36"
-    
-    @_BaseClass._modify
-    def WHITE(self): return "37"
-
-    @_BaseClass._modify
-    def BLACK_BRIGHT(self): return "90"
-    
-    @_BaseClass._modify
-    def RED_BRIGHT(self): return "91"
-        
-    @_BaseClass._modify
-    def GREEN_BRIGHT(self): return "92"
-    
-    @_BaseClass._modify
-    def YELLOW_BRIGHT(self): return "93"
-    
-    @_BaseClass._modify
-    def BLUE_BRIGHT(self): return "94"
-    
-    @_BaseClass._modify
-    def PURPLE_BRIGHT(self): return "95"
-    
-    @_BaseClass._modify
-    def CYAN_BRIGHT(self): return "96"
-    
-    @_BaseClass._modify
-    def WHITE_BRIGHT(self): return "97"
+    BLACK_BRIGHT =     "\033[90m"
+    RED_BRIGHT =       "\033[91m"
+    GREEN_BRIGHT =     "\033[92m"
+    YELLOW_BRIGHT =    "\033[93m"
+    BLUE_BRIGHT =      "\033[94m"
+    PURPLE_BRIGHT =    "\033[95m"
+    CYAN_BRIGHT =      "\033[96m"
+    WHITE_BRIGHT =     "\033[97m"
 
     def rgb_color(self, r, g, b):
         for var in [r, g, b]:

@@ -61,7 +61,21 @@ def bounded_int(lower: int, upper: int, prompt: str = None,
 def numbered_menu(options: Iterable[Any], prompt: str = None, spacing: int = 4) -> Any:
 
     """
-    Arguments: The list of options to enter, which can include things like classes, functions, or simple datatypes. An optional prompt, and an optional spacing value (how many spaces the options are intended by)
+    Creates a numbered menu, in the following format:
+    ```
+    '''
+    <prompt>
+        1. Option
+        2. Option
+        3. Option
+    Please enter a number between {lower} and {upper}:
+    '''
+    ```
+    Arguments: The list of options to enter, which can include things like classes, functions, or simple datatypes. An optional prompt, and an optional spacing value (how many spaces the options are intended by).
+
+    Raises: An AssertionError for incompatible types.
+
+    Returns: The choice selected by the user.
     """
 
     assert isinstance(options, Iterable), "List of options must be iterable!"

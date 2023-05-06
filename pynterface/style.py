@@ -6,7 +6,12 @@ This is my attempt to reproduce colorama's implementation!
 Combinations of styles (backgrounds, colors, and text styles) can be combined.
 """
 
-class __ResetMethod:
+class _BaseClass:
+
+    def _modify(func):
+        def new_func(self):
+            return "\033[" + func(self) + "m"
+        return property(new_func)
 
     @property
     def RESET_ALL(self):
@@ -15,100 +20,89 @@ class __ResetMethod:
         Text.__init__()
         return "\033[0m"
 
-class __TextClass(__ResetMethod):
-
-    def __mod(func):
-        def new_func(self):
-            self._status = func(self)
-            return "\033[" + func(self) + ";" + Color._status + ";" + Background._status + "m"
-        return property(new_func)
+class __TextClass(_BaseClass):
     
     def __init__(self):
         self._status = "0"
 
-    @__mod
+    @_BaseClass._modify
     def RESET_STYLE(self): return "0"
 
-    @__mod
+    @_BaseClass._modify
     def BOLD(self): return "1" 
 
-    @__mod
+    @_BaseClass._modify
     def DIM(self): return "2"
 
-    @__mod
+    @_BaseClass._modify
     def ITALIC(self): return "3"
 
-    @__mod
+    @_BaseClass._modify
     def UNDERLINE(self): return "4"
 
-    @__mod
+    @_BaseClass._modify
     def BLINKING(self): return "5"
 
-    @__mod
+    @_BaseClass._modify
     def INVERTED(self): return "7"
 
-    @__mod
+    @_BaseClass._modify
     def STRIKETHROUGH(self): return "9"
 
-class __BackGroundClass(__ResetMethod):
-    def __mod(func):
-        def new_func(self):
-            self._status = func(self)
-            return "\033[" + Text._status + ";" + Color._status + ";" + func(self) + "m"
-        return property(new_func)
+class __BackGroundClass(_BaseClass):
     
     def __init__(self):
         self._status = "49"
 
-    @__mod
+    @_BaseClass._modify
     def RESET_BACKGROUND(self): return "49"
 
-    @__mod
+    @_BaseClass._modify
     def BLACK(self): return "40"
 
-    @__mod
+    @_BaseClass._modify
     def RED(self): return "41"
 
-    @__mod
+    @_BaseClass._modify
     def GREEN(self): return "42"
 
-    @__mod
+    @_BaseClass._modify
     def YELLOW(self): return "43"
 
-    @__mod
+    @_BaseClass._modify
     def BLUE(self): return "44"
 
-    @__mod
+    @_BaseClass._modify
     def PURPLE(self): return "45"
 
-    @__mod
+    @_BaseClass._modify
     def CYAN(self): return "46"
 
-    @__mod
+    @_BaseClass._modify
     def WHITE(self): return "47"
 
-    @__mod
+    @_BaseClass._modify
     def BLACK_BRIGHT(self): return "100"
 
-    @__mod
+    @_BaseClass._modify
     def RED_BRIGHT(self): return "101"
 
-    @__mod
+    @_BaseClass._modify
     def GREEN_BRIGHT(self): return "102"
 
-    @__mod
+    @_BaseClass._modify
     def YELLOW_BRIGHT(self): return "103"
 
-    @__mod
+    @_BaseClass._modify
     def BLUE_BRIGHT(self): return "104"
 
-    @__mod
+    @_BaseClass._modify
     def PURPLE_BRIGHT(self): return "105"
 
-    @__mod
+    @_BaseClass._modify
     def CYAN_BRIGHT(self): return "106"
 
-    @__mod
+    @_BaseClass._modify
     def WHITE_BRIGHT(self): return "107"
 
     def rgb_color(self, r, g, b):
@@ -116,66 +110,60 @@ class __BackGroundClass(__ResetMethod):
             assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
         return f"\033[48;2;{r};{g};{b}m"
 
-class __ColorClass(__ResetMethod):
- 
-    def __mod(func):
-        def new_func(self):
-            self._status = func(self)
-            return "\033[" + Text._status + ";" + func(self) + ";" + Background._status + "m"
-        return property(new_func)
+class __ColorClass(_BaseClass):
 
     def __init__(self):
         self._status = "39"
 
-    @__mod
+    @_BaseClass._modify
     def RESET_COLOR(self): return "39"
 
-    @__mod
+    @_BaseClass._modify
     def BLACK(self): return "30"
     
-    @__mod
+    @_BaseClass._modify
     def RED(self): return "31"
         
-    @__mod
+    @_BaseClass._modify
     def GREEN(self): return "32"
     
-    @__mod
+    @_BaseClass._modify
     def YELLOW(self): return "33"
     
-    @__mod
+    @_BaseClass._modify
     def BLUE(self): return "34"
     
-    @__mod
+    @_BaseClass._modify
     def PURPLE(self): return "35"
     
-    @__mod
+    @_BaseClass._modify
     def CYAN(self): return "36"
     
-    @__mod
+    @_BaseClass._modify
     def WHITE(self): return "37"
 
-    @__mod
+    @_BaseClass._modify
     def BLACK_BRIGHT(self): return "90"
     
-    @__mod
+    @_BaseClass._modify
     def RED_BRIGHT(self): return "91"
         
-    @__mod
+    @_BaseClass._modify
     def GREEN_BRIGHT(self): return "92"
     
-    @__mod
+    @_BaseClass._modify
     def YELLOW_BRIGHT(self): return "93"
     
-    @__mod
+    @_BaseClass._modify
     def BLUE_BRIGHT(self): return "94"
     
-    @__mod
+    @_BaseClass._modify
     def PURPLE_BRIGHT(self): return "95"
     
-    @__mod
+    @_BaseClass._modify
     def CYAN_BRIGHT(self): return "96"
     
-    @__mod
+    @_BaseClass._modify
     def WHITE_BRIGHT(self): return "97"
 
     def rgb_color(self, r, g, b):

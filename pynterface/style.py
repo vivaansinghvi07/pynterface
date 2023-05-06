@@ -7,7 +7,11 @@ Combinations of styles (backgrounds, colors, and text styles) are possible.
 This version includes the ability to modify RGB values of colors.
 """
 
-class __TextClass:
+class Text:
+
+    """
+    This class stores information about editing text styles.
+    """
 
     RESET_ALL =     "\033[0m"
     RESET_STYLE =   "\033[22m"
@@ -20,7 +24,11 @@ class __TextClass:
     INVERTED =      "\033[7m"
     STRIKETHROUGH = "\033[9m"
 
-class __BackGroundClass:
+class Background:
+
+    """
+    This class stores information about modifying the background color.
+    """
 
     RESET_BACKGROUND =  "\033[49m"
     RESET_ALL =         "\033[0m"
@@ -43,12 +51,16 @@ class __BackGroundClass:
     CYAN_BRIGHT =      "\033[106m"
     WHITE_BRIGHT =     "\033[107m"
 
-    def RGB(self, r, g, b):
+    def RGB(r, g, b):
         for var in [r, g, b]:
             assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
         return f"\033[48;2;{r};{g};{b}m"
 
-class __ColorClass():
+class Color:
+
+    """
+    This class stores information about modifying the foreground color (color of text)
+    """
 
     RESET_COLOR =   "\033[39m"
     RESET_ALL =     "\033[0m"
@@ -71,21 +83,21 @@ class __ColorClass():
     CYAN_BRIGHT =      "\033[96m"
     WHITE_BRIGHT =     "\033[97m"
 
-    def RGB(self, r, g, b):
+    def RGB(r, g, b):
         for var in [r, g, b]:
             assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
         return f"\033[38;2;{r};{g};{b}m"
 
-Color = __ColorClass()
-Text = __TextClass()
-Background = __BackGroundClass()
+def demo():
 
-if __name__ == "__main__":
+    """
+    A simple demonstration of the different colors supported.
+    """
 
     # prints examples for each property of the color classes
     def printing_loop(var):
         for name in dir(var):
-            if name[0] != "_" and "RESET" not in name and "rgb" not in name:
+            if name[0] != "_" and "RESET" not in name and "RGB" not in name:
                 modifier = getattr(var, name)
                 print(f"{modifier}{name}{var.RESET_ALL}")
 
@@ -98,5 +110,8 @@ if __name__ == "__main__":
     printing_loop(Text)
 
     # test cases for rgb colors
-    print(f"{Color.rgb_color(100, 150, 200)}Color.rgb_color(100, 150, 200){Text.RESET_ALL}")
-    print(f"{Background.rgb_color(200, 100, 100)}Background.rgb_color(200, 100, 100)")
+    print(f"{Color.RGB(100, 150, 200)}Color.rgb_color(100, 150, 200){Text.RESET_ALL}")
+    print(f"{Background.RGB(200, 100, 100)}Background.rgb_color(200, 100, 100)")
+
+if __name__ == "__main__":
+    demo()

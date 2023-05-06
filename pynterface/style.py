@@ -43,7 +43,7 @@ class __BackGroundClass:
     CYAN_BRIGHT =      "\033[106m"
     WHITE_BRIGHT =     "\033[107m"
 
-    def rgb_color(self, r, g, b):
+    def RGB(self, r, g, b):
         for var in [r, g, b]:
             assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
         return f"\033[48;2;{r};{g};{b}m"
@@ -71,7 +71,7 @@ class __ColorClass():
     CYAN_BRIGHT =      "\033[96m"
     WHITE_BRIGHT =     "\033[97m"
 
-    def rgb_color(self, r, g, b):
+    def RGB(self, r, g, b):
         for var in [r, g, b]:
             assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
         return f"\033[38;2;{r};{g};{b}m"

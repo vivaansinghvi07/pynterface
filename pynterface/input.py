@@ -102,7 +102,7 @@ def numbered_menu(options: Iterable[Any], prompt: str = None, spacing: int = 4) 
     return options[choice - 1]
     
 
-def list_menu(options: list[Any], beginning_prompt: str = None, 
+def list_menu(options: Iterable[Any], beginning_prompt: str = None, 
               end_prompt: str = "Enter your choice: ",
               error_prompt: str = "Invalid chocie; enter a valid one: ",
               spacing: int = 4, selector: str = '-') -> Any:

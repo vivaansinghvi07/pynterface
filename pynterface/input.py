@@ -69,7 +69,8 @@ def __list_print(prompt: str, spacing: int, str_options: list) -> None:
     for index, opt in enumerate(str_options):
         print(f"{' '*spacing}{index+1}. {opt}")
 
-def numbered_menu(options: Iterable[Any], prompt: str = None, spacing: int = 4) -> Any:
+def numbered_menu(options: Iterable[Any], beginning_prompt: str = None, 
+                  end_prompt: str = None, spacing: int = 4) -> Any:
 
     """
     Creates a numbered menu, in the following format:
@@ -95,12 +96,11 @@ def numbered_menu(options: Iterable[Any], prompt: str = None, spacing: int = 4) 
 
     str_options = list(map(__map_to_str, options))
 
-    __list_print(prompt=prompt, spacing=spacing, str_options=str_options)
+    __list_print(prompt=beginning_prompt, spacing=spacing, str_options=str_options)
     
-    choice = bounded_int(1, len(str_options))
+    choice = bounded_int(1, len(str_options), prompt=end_prompt)
 
     return options[choice - 1]
-    
 
 def list_menu(options: Iterable[Any], beginning_prompt: str = None, 
               end_prompt: str = "Enter your choice: ",

@@ -70,7 +70,7 @@ def __list_print(prompt: str, spacing: int, str_options: list) -> None:
         print(f"{' '*spacing}{index+1}. {opt}")
 
 def numbered_menu(options: Iterable[Any], beginning_prompt: str = None, 
-                  end_prompt: str = None, spacing: int = 4) -> Any:
+                  selection_prompt: str = None, spacing: int = 4, return_number: bool = False) -> Any:
 
     """
     Creates a numbered menu, in the following format:
@@ -98,13 +98,13 @@ def numbered_menu(options: Iterable[Any], beginning_prompt: str = None,
 
     __list_print(prompt=beginning_prompt, spacing=spacing, str_options=str_options)
     
-    choice = bounded_int(1, len(str_options), prompt=end_prompt)
+    choice = bounded_int(1, len(str_options), prompt=selection_prompt)
 
     return options[choice - 1]
 
 def list_menu(options: Iterable[Any], beginning_prompt: str = None, 
-              end_prompt: str = "Enter your choice: ",
-              error_prompt: str = "Invalid chocie; enter a valid one: ",
+              selection_prompt: str = "Enter your choice: ",
+              error_prompt: str = "Invalid choice, enter a valid one: ",
               spacing: int = 4, selector: str = '-') -> Any:
 
     """
@@ -134,7 +134,7 @@ def list_menu(options: Iterable[Any], beginning_prompt: str = None,
 
     __list_print(prompt=beginning_prompt, spacing=spacing, str_options=str_options)
 
-    choice = input(end_prompt)
+    choice = input(selection_prompt)
 
     while choice.strip() not in str_options:
         choice = input(error_prompt)
@@ -143,3 +143,6 @@ def list_menu(options: Iterable[Any], beginning_prompt: str = None,
 
 def two_dim_array(rows: int, cols: int, delimiter: str = " ") -> list[list[Any]]:
     pass
+
+
+print(list_menu([list_menu, numbered_menu, bounded_int])(1, 4))

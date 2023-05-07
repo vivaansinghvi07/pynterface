@@ -83,7 +83,7 @@ def numbered_menu(options: Iterable[Any], beginning_prompt: str = None,
     Please enter a number between {lower} and {upper}:
     '''
     ```
-    Arguments: The list of options to enter, which can include things like classes, functions, or simple datatypes. An optional prompt, and an optional spacing value (how many spaces the options are intended by).
+    Arguments: The list of options to enter, which can include things like classes, functions, or simple datatypes. An optional prompt, and an optional spacing value (how many spaces the options are intended by). Additionally, you can enter a return_number parameter in order to return the number rather than its associated value.
 
     Raises: An AssertionError for incompatible types.
 
@@ -100,6 +100,9 @@ def numbered_menu(options: Iterable[Any], beginning_prompt: str = None,
     
     choice = bounded_int(1, len(str_options), prompt=selection_prompt)
 
+    if return_number:
+        return choice
+    
     return options[choice - 1]
 
 def list_menu(options: Iterable[Any], beginning_prompt: str = None, 

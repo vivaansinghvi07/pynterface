@@ -58,6 +58,17 @@ def bounded_int(lower: int, upper: int, prompt: str = None,
 
     return user_input
 
+def __list_print(prompt: str, spacing: int, str_options: list) -> None:
+    """
+    Prints menu options and beginning prompt.
+    """
+
+    if prompt:
+        print(prompt)
+
+    for index, opt in enumerate(str_options):
+        print(f"{' '*spacing}{index+1}. {opt}")
+
 def numbered_menu(options: Iterable[Any], prompt: str = None, spacing: int = 4) -> Any:
 
     """
@@ -78,24 +89,23 @@ def numbered_menu(options: Iterable[Any], prompt: str = None, spacing: int = 4) 
     Returns: The choice selected by the user.
     """
 
-    assert isinstance(options, Iterable), "List of options must be iterable!"
-    assert len(options) > 0, "You cannot pass in an empty list!"
+    assert isinstance(options, Iterable), "Options must be iterable!"
+    assert len(options) >= 2, "There should be at least two values to select from!"
     assert isinstance(spacing, int) and spacing >= 0, "Spacing must be a non-negative integer!"
 
     str_options = list(map(__map_to_str, options))
 
-    if prompt:
-        print(prompt)
-
-    for index, opt in enumerate(str_options):
-        print(f"{' '*spacing}{index+1}. {opt}")
+    __list_print(prompt=prompt, spacing=spacing, str_options=str_options)
     
     choice = bounded_int(1, len(str_options))
 
     return options[choice - 1]
     
 
-def list_menu(options: list[Any], prompt: str = None, spacing: int = 4, option_selector: str = '-') -> Any:
+def list_menu(options: list[Any], beginning_prompt: str = None, 
+              end_prompt: str = "Enter your choice: ",
+              error_prompt: str = "Invalid chocie; enter a valid one: ",
+              spacing: int = 4, selector: str = '-') -> Any:
 
     """
     Creates a numbered menu, in the following format:
@@ -105,7 +115,7 @@ def list_menu(options: list[Any], prompt: str = None, spacing: int = 4, option_s
         - Option
         - Option
         - Option
-    Please enter a number between {lower} and {upper}:
+    Please enter yor option:
     '''
     ```
     Arguments: The list of options to enter, which can include things like classes, functions, or simple datatypes. An optional prompt, and an optional spacing value (how many spaces the options are intended by).
@@ -114,8 +124,22 @@ def list_menu(options: list[Any], prompt: str = None, spacing: int = 4, option_s
 
     Returns: The choice selected by the user.
     """
+    
+    assert isinstance(options, Iterable), "Options must be iterable!"
+    assert len(options) >= 2, "There should be at least two values to select from!"
+    assert isinstance(spacing, int) and spacing >= 0, "Spacing must be a non-negative integer!"
+    assert isinstance(selector, str), "List element introducer must be a string!"
 
-    pass
+    str_options = list(map(__map_to_str, options))
+
+    __list_print(prompt=beginning_prompt, spacing=spacing, str_options=str_options)
+
+    choice = input(end_prompt)
+
+    while choice.strip() not in str_options:
+        choice = input(error_prompt)
+
+    return options[str_options.index(choice)]
 
 def two_dim_array(rows: int, cols: int, delimiter: str = " ") -> list[list[Any]]:
     pass

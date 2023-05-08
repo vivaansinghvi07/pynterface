@@ -144,14 +144,25 @@ def list_menu(options: Iterable[Any], beginning_prompt: str = None,
 
     return options[str_options.index(choice)]
 
-def two_dim_array(rows: int, cols: int, delimiter: str = " ", type: int = str) -> list[list[Any]]:
+def two_dim_array(rows: int, cols: int = None, delimiter: str = " ", item_type: int = str) -> list[list[Any]]:
 
     """
-    Arguments: A number of rows, a number of columns, and an optional delimiter. The delimiter is set to spaces by default. To split strings into individual characters, enter a delimiter of ''. You can also enter a type (str, float) in which the items will be read. The default is str.
+    Arguments: A number of rows, a number of columns, and an optional delimiter. The delimiter is set to spaces by default. To split strings into individual characters, enter a delimiter of ''. 
+    You can also enter a type (str, float) in which the items will be read. The default is str.
 
     Raises: An AssertionError for invalid row or column counts.
     
     Returns: A 2-d list will be in the form of list[rows][cols].
     """
 
-    pass
+    output = []
+    for _ in range(rows):
+        row = input()           # delimiter for rows must be a \n character
+        if delimiter == "":
+            items = list(row)   # splits string into char array
+        else:
+            items = row.split(delimiter)    # otherwise split by the delimiter  
+        assert cols == None or (cols != None and len(items) == cols), "Column count parameter and items in the row do not match."
+        output.append(list(map(item_type, items)))
+
+    return output

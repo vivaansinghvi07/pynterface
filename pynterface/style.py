@@ -24,6 +24,9 @@ class Text:
     INVERTED =      "\033[7m"
     STRIKETHROUGH = "\033[9m"
 
+    HIDE_CURSOR =   "\033[?25l"
+    SHOW_CURSOR =   "\033[?25h"
+
 class Background:
 
     """
@@ -127,7 +130,7 @@ def demo():
     # prints examples for each property of the color classes
     def printing_loop(var):
         for name in dir(var):
-            if name[0] != "_" and sum([kw in name for kw in ["RESET", "RGB", "SET"]]) == 0:
+            if name[0] != "_" and sum([kw in name for kw in ["RESET", "RGB", "SET", "CURSOR"]]) == 0:
                 modifier = getattr(var, name)
                 print(f"{modifier}{name}{var.RESET_ALL}")
 

@@ -3,7 +3,7 @@ from time import sleep
 
 class Loader():
     
-    def __init__(self, message: str, cycle: list[str], delay: 50, hide_cursor: bool = False) -> None:
+    def __init__(self, message: str, cycle: list[str], delay: int, hide_cursor: bool = False) -> None:
 
         """
         Creates a new Loader with a message which appears on the same line as the cycler.

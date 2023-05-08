@@ -140,7 +140,7 @@ def demo():
     printing_loop(Text)
 
     # test cases for rgb colors
-    print(f"{Color.RGB(100, 150, 200)}Color.RGB(100, 150, 200){Text.RESET_ALL}")
+    print(f"{Color.RGB(100, 200, 150)}Color.RGB(100, 150, 200){Text.RESET_ALL}")
     print(f"{Background.RGB(200, 100, 100)}Background.RGB(200, 100, 100){Text.RESET_ALL}")
 
     # test cases for setting values

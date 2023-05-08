@@ -7,7 +7,7 @@ def __map_to_str(opt):
     Turns the 
     """
 
-    if isinstance(opt, (bool, str, float, int)):
+    if isinstance(opt, (bool, str, float, int, object)):
         return str(opt)
     try:
         return opt.__name__

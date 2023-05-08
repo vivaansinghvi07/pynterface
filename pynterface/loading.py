@@ -102,8 +102,16 @@ class Loader():
         """
         print("\r" + " " * (len(self.message) + self.max_len + 1), end="")
 
+class Spinner(Loader):
+    def __init__(self, message: str, delay: int = 100) -> None:
+        """
+        A Spinner preset based on the Loader class.
+        You must enter a message, and the delay is defaulted to 100 milliseconds, but is optionally changeable.
+        """
+        super().__init__(message=message, cycle=["/", "|", "\\", "-"], delay=delay, hide_cursor=True)
+
 if __name__ == "__main__":
-    with Loader(message="Loading", cycle=[".", "..", "..."], delay=500) as loader:
+    with Spinner(message="Loading ") as loader:
         sum = 0
         for i in range(1, 100_000_000):
             if i % 30_000_000 == 0:

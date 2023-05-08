@@ -61,6 +61,16 @@ class Background:
             assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
         return f"\033[48;2;{r};{g};{b}m"
     
+    def SET(name: str, rgb: tuple) -> None:
+
+        """
+        Sets a custom background color given its name and a tuple containing (r, g, b) values.
+        Call this color using: Background.NAME, where NAME is the entered name.
+        """
+
+        assert isinstance(name, str), "Name must be a string!"
+        setattr(Background, name, Background.RGB(r=rgb[0], g=rgb[1], b=rgb[2]))
+
 class Color:
 
     """
@@ -97,6 +107,16 @@ class Color:
         for var in [r, g, b]:
             assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
         return f"\033[38;2;{r};{g};{b}m"
+    
+    def SET(name: str, rgb: tuple) -> None:
+
+        """
+        Sets a custom text color given its name and a tuple containing (r, g, b) values.
+        Call this color using: Color.NAME, where NAME is the entered name.
+        """
+
+        assert isinstance(name, str), "Name must be a string!"
+        setattr(Color, name, Color.RGB(r=rgb[0], g=rgb[1], b=rgb[2]))
 
 def demo():
 
@@ -120,8 +140,12 @@ def demo():
     printing_loop(Text)
 
     # test cases for rgb colors
-    print(f"{Color.RGB(100, 150, 200)}Color.rgb_color(100, 150, 200){Text.RESET_ALL}")
-    print(f"{Background.RGB(200, 100, 100)}Background.rgb_color(200, 100, 100)")
+    print(f"{Color.RGB(100, 150, 200)}Color.RGB(100, 150, 200){Text.RESET_ALL}")
+    print(f"{Background.RGB(200, 100, 100)}Background.RGB(200, 100, 100){Text.RESET_ALL}")
+
+    # test cases for setting values
+    Color.SET("COOL_BLUE", (100, 150, 200))
+    print(f"{Color.COOL_BLUE}This is a custom color!")
 
 if __name__ == "__main__":
     demo()

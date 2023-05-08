@@ -127,7 +127,7 @@ def demo():
     # prints examples for each property of the color classes
     def printing_loop(var):
         for name in dir(var):
-            if name[0] != "_" and "RESET" not in name and "RGB" not in name:
+            if name[0] != "_" and sum([kw in name for kw in ["RESET", "RGB", "SET"]]) == 0:
                 modifier = getattr(var, name)
                 print(f"{modifier}{name}{var.RESET_ALL}")
 

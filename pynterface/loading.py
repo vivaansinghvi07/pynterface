@@ -1,5 +1,6 @@
 from threading import Thread
 from time import sleep
+import sys
 
 class Loader():
     
@@ -22,6 +23,7 @@ class Loader():
 
         # temporary null value 
         self.runner = None
+        self.prev_length = len(self.cycle[0])
         
         # for cycling
         self.mod = len(cycle)
@@ -55,14 +57,14 @@ class Loader():
                 self.__display(item)
                 sleep(self.delay)
         finally:
-            if self.hide_cursor:
-                print("\033[?25h", end="")
+            print("\033[?25h", end="")  # shows cursor no matter what
 
     def __display(self, item):
         """
         Clears and displays the message.
         """
-        self.__clear()
+        self.__clear_animated()
+        self.prev_length = len(item)
         print("\r" + self.message + item, end="")
 
     def __enter__(self):
@@ -97,6 +99,14 @@ class Loader():
         self.__display(self.cycle[self.state])
         sleep(self.delay)
 
+    def __clear_animated(self):
+        """
+        Clears the animated thing.
+        """
+        print("\b" * self.prev_length 
+              + " " * self.prev_length 
+              + "\b" * self.prev_length, end="")
+
     def __clear(self):
         """
         Clears the message.
@@ -112,7 +122,7 @@ class Spinner(Loader):
         super().__init__(message=message, cycle=["/", "-", "\\", "|"], delay=delay, hide_cursor=True)
 
 if __name__ == "__main__":
-    with Spinner(message="Loading ") as loader:
+    with Loader(message="Loading", cycle=['.', '..', '...', '..'], delay=100) as loader:
         sum = 0
         for i in range(1, 100_000_000):
             if i % 30_000_000 == 0:

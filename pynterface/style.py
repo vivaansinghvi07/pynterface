@@ -51,11 +51,16 @@ class Background:
     CYAN_BRIGHT =      "\033[106m"
     WHITE_BRIGHT =     "\033[107m"
 
-    def RGB(r, g, b):
+    def RGB(r: int, g: int, b: int) -> str:
+
+        """
+        Returns the ANSI escape code for a background color in RGB.
+        """
+
         for var in [r, g, b]:
             assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
         return f"\033[48;2;{r};{g};{b}m"
-
+    
 class Color:
 
     """
@@ -83,7 +88,12 @@ class Color:
     CYAN_BRIGHT =      "\033[96m"
     WHITE_BRIGHT =     "\033[97m"
 
-    def RGB(r, g, b):
+    def RGB(r: int, g: int, b: int) -> str:
+
+        """
+        Returns the ANSI escape code for a text color in RGB.
+        """
+
         for var in [r, g, b]:
             assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
         return f"\033[38;2;{r};{g};{b}m"

@@ -108,7 +108,7 @@ class Spinner(Loader):
         A Spinner preset based on the Loader class.
         You must enter a message, and the delay is defaulted to 100 milliseconds, but is optionally changeable.
         """
-        super().__init__(message=message, cycle=["/", "|", "\\", "-"], delay=delay, hide_cursor=True)
+        super().__init__(message=message, cycle=["/", "-", "\\", "|"], delay=delay, hide_cursor=True)
 
 if __name__ == "__main__":
     with Spinner(message="Loading ") as loader:

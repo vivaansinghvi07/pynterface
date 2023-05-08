@@ -47,12 +47,16 @@ class Loader():
         """
         Thread that runs the loader.
         """
-        while not self.over:
-            if self.paused:
-                continue
-            item = self.cycle[self.state]
-            self.__display(item)
-            sleep(self.delay)
+        try:
+            while not self.over:
+                if self.paused:
+                    continue
+                item = self.cycle[self.state]
+                self.__display(item)
+                sleep(self.delay)
+        finally:
+            if self.hide_cursor:
+                print("\033[?25h", end="")
 
     def __display(self, item):
         """
@@ -77,9 +81,6 @@ class Loader():
 
         # end thread
         self.runner.join()
-
-        if self.hide_cursor:
-            print("\033[?25h", end="")
 
     def print_above(self, message):
         """

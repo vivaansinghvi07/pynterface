@@ -14,7 +14,7 @@ class Loader():
         Creates a new Loader with a message which appears on the same line as the cycler.
         """
 
-        assert sum([not isinstance(part, str) for part in cycle]) == 0, "Cycle must consist of strings only."
+        assert all([isinstance(part, str) for part in cycle]), "Cycle must consist of strings only."
         assert isinstance(message, str), "Message must be a string."
 
         self.max_len = max([len(item) for item in cycle])
@@ -120,15 +120,34 @@ class Loader():
         print("\r" + " " * (len(self.message) + self.max_len + 1), end="")
 
 class Spinner(Loader):
-    def __init__(self, message: str, delay: int = 100) -> None:
+    """
+    A Spinner preset based on the Loader class.
+    You must enter a message, and the delay is defaulted to 50 milliseconds, but is optionally changeable.
+    """
+    def __init__(self, message: str, delay: int = 50) -> None:
         """
         A Spinner preset based on the Loader class.
-        You must enter a message, and the delay is defaulted to 100 milliseconds, but is optionally changeable.
+        You must enter a message, and the delay is defaulted to 50 milliseconds, but is optionally changeable.
         """
         super().__init__(message=message, cycle=["/", "-", "\\", "|"], delay=delay, hide_cursor=True)
 
+class Ellipsis(Loader):
+    """
+    A Ellipsis - "..." - preset based on the Loader class.
+    You must enter a message, and the delay is preset to 200 millisecnds, but is optionally changeable.
+    You must also enter a number of periods to loop to. 4 periods would be: ".", "..", "...", "...."
+    """
+    def __init__(self, message: str, periods: int = 3, delay: int = 200) -> None:
+        """
+        A Ellipsis - "..." - preset based on the Loader class.
+        You must enter a message, and the delay is preset to 200 millisecnds, but is optionally changeable.
+        You must also enter a number of periods to loop to. 4 periods would be: ".", "..", "...", "...."
+        """
+        assert isinstance(periods, int) and periods > 1, "You must have an upper limit of at least 2 periods!"
+        super().__init__(message=message, cycle=["."*n for n in range(1, periods+1)], delay=delay, hide_cursor=True)
+
 if __name__ == "__main__":
-    with Loader(message="Loading", cycle=['.', '..', '...', '..'], delay=100) as loader:
+    with Ellipsis("Loading", 5) as loader:
         sum = 0
         for i in range(1, 100_000_000):
             if i % 30_000_000 == 0:

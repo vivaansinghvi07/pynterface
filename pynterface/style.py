@@ -1,10 +1,10 @@
 """
-All ANSI codes are adapted from w3schools's ANSI colors reference:
+All ANSI codes for colors are adapted from w3schools's ANSI colors reference:
 https://www.w3schools.blog/ansi-colors-java
 
 This is my attempt to reproduce colorama's implementation!
 Combinations of styles (backgrounds, colors, and text styles) are possible.
-This version includes the ability to modify RGB values of colors.
+This version includes the ability to modify RGB values of colors, set custom colors, and move the cursor.
 """
 
 class Text:

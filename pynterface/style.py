@@ -27,6 +27,20 @@ class Text:
     HIDE_CURSOR =   "\033[?25l"
     SHOW_CURSOR =   "\033[?25h"
 
+    def MOVE_CURSOR_UP(lines: int = 1):
+        """
+        Returns an ANSI code to move the cursor up by <lines> lines.
+        """
+        assert isinstance(lines, int) and lines > 0, "Number of lines to move up must be a positive integer."
+        return f"\033[<{lines}>A"
+    
+    def MOVE_CURSOR_DOWN(lines: int = 1):
+        """
+        Returns an ANSI code to move the cursor down by <lines> lines.
+        """
+        assert isinstance(lines, int) and lines > 0, "Number of lines to move up must be a positive integer."
+        return f"\033[<{lines}>B"
+
 class Background:
 
     """

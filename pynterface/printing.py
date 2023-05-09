@@ -11,6 +11,9 @@ import re
 from typing import Any
 from time import sleep
 
+# \033[ followed by a combo of numbers and ; ended with a single letter
+__ANSI_PATTERN = "\033\[[0-9|;]*[a-z|A-Z]"
+
 def clear_window() -> None:
     """
     Clears the terminal window.
@@ -34,14 +37,12 @@ def smooth_print(message: Any, delay: int = 25, end: str = "\n") -> None:
     Arguments: A message, and delay (in milliseconds), and an optional end. 
     """
 
-    ansi_pattern = "\033\[[0-9|;]*[a-z|A-Z]"
-
     # splits into ascii
     chars = __split_esc_chars(str(message))
 
     # prints each character with a delay
     for char in chars:
-        if re.search(ansi_pattern, message) == None:    # delay only if ansi
+        if re.search(__ANSI_PATTERN, message) == None:    # delay only if ansi
             sleep(delay/1000)       
         print(char, end="")
         
@@ -59,11 +60,8 @@ def __split_esc_chars(message: str) -> list[str]:
 
     char_list = []
 
-    # \033[ followed by a combo of numbers and ; ended with a single letter
-    ansi_pattern = "\033\[[0-9|;]*[a-z|A-Z]"
-
     # get codes and normal things in between
-    ansi_codes = re.finditer(ansi_pattern, message)
+    ansi_codes = re.finditer(__ANSI_PATTERN, message)
     matches = [(match.start(), match.end(), match.group()) for match in ansi_codes]
 
     i = 0

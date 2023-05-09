@@ -1,3 +1,8 @@
+"""
+Supports loading animations, inspired by Auto-GPT's spinner class, found here: https://github.com/Significant-Gravitas/Auto-GPT/blob/master/autogpt/spinner.py
+This version supports customizable cycling as well as default classes for quick access. You can also print messages above the spinner.
+"""
+
 from threading import Thread
 from time import sleep
 

@@ -171,12 +171,37 @@ class Ellipsis(Loader):
         assert isinstance(periods, int) and periods > 1, "You must have an upper limit of at least 2 periods!"
         super().__init__(message=message, cycle=["."*n for n in range(1, periods+1)], delay=delay, hide_cursor=True)
 
-if __name__ == "__main__":
-    with Ellipsis("Loading", 5) as loader:
-        sum = 0
+def test_loaders():
+    """
+    Tests the functionality and displays of loaders.
+    """
+    def __loop():
+        """
+        Example time-consuming task to test loaders.
+        """
         for i in range(1, 100_000_000):
-            if i % 30_000_000 == 0:
-                loader.print_above("message")
-            sum += 1
+            if i % 40_000_000 == 0:
+                yield f"{i:,} is divisble by 40,000,000!"
+            elif i % 20_000_000 == 0:
+                yield f"{i:,} is almost divisble by 40,000,000!"
 
-    print("done")
+    with Loader(message="Loading ", cycle=[str(n) for n in range(10)], delay=10) as loader:
+        for output in __loop():
+            loader.print_above(output)
+
+    print("Loader done!")
+
+    with Spinner(message="Calculating ") as spinner:
+        for output in __loop():
+            spinner.print_above(output)
+
+    print("Spinner done!")
+
+    with Ellipsis(message="Periods", periods=15) as ellipsis:
+        for output in __loop():
+            ellipsis.print_above(output)
+
+    print("Ellipsis done!")
+
+if __name__ == "__main__":
+    test_loaders()

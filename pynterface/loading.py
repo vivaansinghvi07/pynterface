@@ -169,7 +169,7 @@ class Ellipsis(Loader):
         :rtype: NoneType
         """
         assert isinstance(periods, int) and periods > 1, "You must have an upper limit of at least 2 periods!"
-        super().__init__(message=message, cycle=["."*n for n in range(1, periods+1)], delay=delay, hide_cursor=True)
+        super().__init__(message=message, cycle=["."*n for n in range(periods+1)], delay=delay, hide_cursor=True)
 
 def test_loaders():
     """

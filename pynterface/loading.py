@@ -1,10 +1,9 @@
 from threading import Thread
 from time import sleep
-import sys
 
 class Loader():
     
-    def __init__(self, message: str, cycle: list[str], delay: int, hide_cursor: bool = False) -> None:
+    def __init__(self, message: str, cycle: list[str], delay: int, hide_cursor: bool = True) -> None:
 
         """
         Creates a new Loader with a message which appears on the same line as the cycler.
@@ -23,7 +22,9 @@ class Loader():
 
         # temporary null value 
         self.runner = None
-        self.prev_length = len(self.cycle[0])
+
+        # stores values for going back and clearing
+        self.prev_length = len(self.cycle[0]) 
         
         # for cycling
         self.mod = len(cycle)

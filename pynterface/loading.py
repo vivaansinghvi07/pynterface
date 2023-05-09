@@ -2,7 +2,7 @@
 Supports loading animations, inspired by Auto-GPT's spinner class, found here: https://github.com/Significant-Gravitas/Auto-GPT/blob/master/autogpt/spinner.py
 This version supports customizable cycling as well as default classes for quick access. You can also print messages above the spinner.
 """
-
+from __future__ import annotations
 from threading import Thread
 from time import sleep
 
@@ -12,6 +12,16 @@ class Loader():
 
         """
         Creates a new Loader with a message which appears on the same line as the cycler.
+
+        :param str message: The message being printed on the same line as the cycler.
+        :param list[str] cycle: The list of strings to cycle between to display loading.
+        :param int delay: The number of milliseconds between each item in the cycle.
+        :param bool hide_cursor: Whether or not the cursor is hidden while the Loader runs.
+
+        :raises AssertionError: if either the message or the items in the cycle are not strings.
+
+        :return: None
+        :rtype: NoneType
         """
 
         assert all([isinstance(part, str) for part in cycle]), "Cycle must consist of strings only."
@@ -43,7 +53,7 @@ class Loader():
             print("\033[?25l", end="")
 
     @property
-    def state(self):
+    def __state(self):
         """
         Adjusts the index and returns it.
         """
@@ -51,7 +61,7 @@ class Loader():
         self.index %= self.mod
         return self.index
 
-    def run(self):
+    def __run(self) -> None:
         """
         Thread that runs the loader.
         """
@@ -59,7 +69,7 @@ class Loader():
             while not self.over:
                 if self.paused:
                     continue
-                item = self.cycle[self.state]
+                item = self.cycle[self.__state]
                 self.__display(item)
                 sleep(self.delay)
         finally:
@@ -73,8 +83,8 @@ class Loader():
         self.prev_length = len(item)
         print("\r" + self.message + item, end="")
 
-    def __enter__(self):
-        self.runner = Thread(target=self.run)
+    def __enter__(self) -> Loader:
+        self.runner = Thread(target=self.__run)
         self.runner.start()
         return self
 
@@ -90,9 +100,11 @@ class Loader():
         # end thread
         self.runner.join()
 
-    def print_above(self, message):
+    def print_above(self, message) -> None:
         """
-        Prints the entered string above the spinner.
+        Prints the entered string above the Loader.
+
+        :param str message: The message to be printed above the Loader.
         """
 
         # pause and print message
@@ -102,7 +114,7 @@ class Loader():
         self.paused = False
 
         # reset the display
-        self.__display(self.cycle[self.state])
+        self.__display(self.cycle[self.__state])
         sleep(self.delay)
 
     def __clear_animated(self):
@@ -122,26 +134,39 @@ class Loader():
 class Spinner(Loader):
     """
     A Spinner preset based on the Loader class.
-    You must enter a message, and the delay is defaulted to 50 milliseconds, but is optionally changeable.
+    Cycles between \, |, /, and - to simulate spinning.
     """
     def __init__(self, message: str, delay: int = 50) -> None:
         """
         A Spinner preset based on the Loader class.
-        You must enter a message, and the delay is defaulted to 50 milliseconds, but is optionally changeable.
+        
+        :param str message: The message on the same line as the spinner.
+        :param int delay: Delay in milliseconds between each item, defaulted to 50.
+
+        :raises AssertionError: if the message is not a string.
+
+        :return: None
+        :rtype: NoneType
         """
         super().__init__(message=message, cycle=["/", "-", "\\", "|"], delay=delay, hide_cursor=True)
 
 class Ellipsis(Loader):
     """
     A Ellipsis - "..." - preset based on the Loader class.
-    You must enter a message, and the delay is preset to 200 millisecnds, but is optionally changeable.
-    You must also enter a number of periods to loop to. 4 periods would be: ".", "..", "...", "...."
+    Cycles up to a given number of periods then repeats.
     """
     def __init__(self, message: str, periods: int = 3, delay: int = 200) -> None:
         """
         A Ellipsis - "..." - preset based on the Loader class.
-        You must enter a message, and the delay is preset to 200 millisecnds, but is optionally changeable.
-        You must also enter a number of periods to loop to. 4 periods would be: ".", "..", "...", "...."
+        
+        :param str message: The message that will be printed next to the cycler.
+        :param int periods: The number of periods at the longest string.
+        :param int delay: Delay in milliseconds between each item, defaulted to 200.
+
+        :raises AssertionError: if the message is not a string or if the periods are anything but an int greater than 1.
+
+        :return: None
+        :rtype: NoneType
         """
         assert isinstance(periods, int) and periods > 1, "You must have an upper limit of at least 2 periods!"
         super().__init__(message=message, cycle=["."*n for n in range(1, periods+1)], delay=delay, hide_cursor=True)

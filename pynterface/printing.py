@@ -34,11 +34,15 @@ def smooth_print(message: Any, delay: int = 25, end: str = "\n") -> None:
     Arguments: A message, and delay (in milliseconds), and an optional end. 
     """
 
-    chars = __split_esc_chars(message)
+    # splits into ascii
+    chars = __split_esc_chars(str(message))
 
+    # prints each character with a delay
     for char in chars:
         print(char, end="")
         sleep(delay/1000)
+
+    # prints the end (optional)
     print(end, end="")
 
 def __split_esc_chars(message: str) -> list[str]:

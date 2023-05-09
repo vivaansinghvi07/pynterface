@@ -34,14 +34,17 @@ def smooth_print(message: Any, delay: int = 25, end: str = "\n") -> None:
     Arguments: A message, and delay (in milliseconds), and an optional end. 
     """
 
+    ansi_pattern = "\033\[[0-9|;]*[a-z|A-Z]"
+
     # splits into ascii
     chars = __split_esc_chars(str(message))
 
     # prints each character with a delay
     for char in chars:
+        if re.search(ansi_pattern, message) == None:    # delay only if ansi
+            sleep(delay/1000)       
         print(char, end="")
-        sleep(delay/1000)
-
+        
     # prints the end (optional)
     print(end, end="")
 

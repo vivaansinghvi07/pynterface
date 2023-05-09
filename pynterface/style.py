@@ -30,29 +30,30 @@ class Text:
     def MOVE_CURSOR_UP(lines: int = 1):
         """
         Returns an ANSI code to move the cursor up by <lines> lines.
+        Through testing, I find that this seems to clear the lines that you go up from.
         """
-        assert isinstance(lines, int) and lines > 0, "Number of lines to move up must be a positive integer."
+        assert isinstance(lines, int) and lines >= 0, "Number of lines to move up must be a nonnegative integer."
         return f"\033[{lines}A"
     
     def MOVE_CURSOR_DOWN(lines: int = 1):
         """
         Returns an ANSI code to move the cursor down by <lines> lines.
         """
-        assert isinstance(lines, int) and lines > 0, "Number of lines to move up must be a positive integer."
+        assert isinstance(lines, int) and lines >= 0, "Number of lines to move up must be a nonnegative integer."
         return f"\033[{lines}B"
     
     def MOVE_CURSOR_RIGHT(cols: int = 1):
         """
         Returns an ANSI code to move the cursor right by <cols> columns.
         """
-        assert isinstance(cols, int), "Number of columns must be a positive integer."
+        assert isinstance(cols, int) and cols >= 0, "Number of columns must be a nonnegative integer."
         return f"\033[{cols}C"
     
     def MOVE_CURSOR_LEFT(cols: int = 1):
         """
         Returns an ANSI code to move the cursor left by <cols> columns.
         """
-        assert isinstance(cols, int), "Number of columns must be a positive integer."
+        assert isinstance(cols, int) and cols >= 0, "Number of columns must be a nonnegative integer."
         return f"\033[{cols}D"
 
 class Background:

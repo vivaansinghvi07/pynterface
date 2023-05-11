@@ -74,7 +74,7 @@ def centered(messages: list[str], margin: int = 2) -> str:
             msgs[i] = line  # different kinds of line replacement
 
     # calculate the lengths of each segment
-    lens = [sum([1 if c not in __UNIQUE_CHAR_LENGTHS else __UNIQUE_CHAR_LENGTHS[c] for c in line]) for line in msgs]
+    lens = [sum([__get_effective_len(c) for c in line]) for line in msgs]
     max_len = max(lens)
 
     output = ""
@@ -84,6 +84,18 @@ def centered(messages: list[str], margin: int = 2) -> str:
         output += (margin + (max_len-ln)//2) * " " + line + "\n"
 
     return output[:-1:] # remove last \n
+
+def __get_effective_len(char: str) -> int:
+    """
+    Gets the effective length of a character for things like centering the text.
+    """
+
+    if re.match(__ANSI_PATTERN, char):
+        return 0
+    elif char in __UNIQUE_CHAR_LENGTHS:
+        return __UNIQUE_CHAR_LENGTHS[char]
+    else:
+        return len(char)
 
 def __split_esc_chars(message: str) -> list[str]:
     """

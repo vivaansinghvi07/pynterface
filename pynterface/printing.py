@@ -4,15 +4,21 @@ TODO:
 - Rainbow text
 - Align to center
 - Hide cursor, show cursor
+- Gradient
 """
 
 import os
 import re
-from typing import Any
+from copy import deepcopy as copy
+from typing import Any, Iterable
 from time import sleep
 
 # \033[ followed by a combo of numbers and ; ended with a single letter
 __ANSI_PATTERN = "\033\[[0-9|;]*[a-z|A-Z]"
+__CENTERED_FORBIDDEN_CHARS = "[\t]"
+__UNIQUE_CHAR_LENGTHS = {
+    "\b": -1
+}
 
 def clear_window() -> None:
     """
@@ -48,6 +54,33 @@ def smooth_print(message: Any, delay: int = 25, end: str = "\n") -> None:
         
     # prints the end (optional)
     print(end, end="")
+
+def centered(messages: list[str], margin: int = 2) -> str:
+    """
+    Centers several lines of text.
+    """
+    
+    assert isinstance(messages, Iterable), "Messages must be iterable."
+    assert isinstance(margin, int), "Margin must be an integer."
+
+    msgs = copy(messages)
+
+    # preprocessing to split newlines into two and remove forbidden characters
+    for i in range(len(msgs)-1, -1, -1):
+        line = re.sub(__CENTERED_FORBIDDEN_CHARS, '', msgs[i]).strip()  # remove forbidden characters and strip whitespace
+        if "\n" in line:
+            msgs = msgs[0:i] + line.split('\n') + msgs[i+1:]
+        else:
+            msgs[i] = line  # different kinds of line replacement
+
+    # calculate the lengths of each segment
+    lens = [sum([1 if c in __UNIQUE_CHAR_LENGTHS else __UNIQUE_CHAR_LENGTHS[c] for c in line]) for line in msgs]
+    max_len = max(lens)
+
+    # prints lines and adds whitespace
+    for line, ln in zip(msgs, lens):
+        print((margin + ln//max_len)*" " + line)
+
 
 def __split_esc_chars(message: str) -> list[str]:
     """

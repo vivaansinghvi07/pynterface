@@ -77,10 +77,13 @@ def centered(messages: list[str], margin: int = 2) -> str:
     lens = [sum([1 if c not in __UNIQUE_CHAR_LENGTHS else __UNIQUE_CHAR_LENGTHS[c] for c in line]) for line in msgs]
     max_len = max(lens)
 
-    # prints lines and adds whitespace
-    for line, ln in zip(msgs, lens):
-        print((margin + ln//max_len)*" " + line)
+    output = ""
 
+    # adds lines and adds whitespace
+    for line, ln in zip(msgs, lens):
+        output += (margin + (max_len-ln)//2) * " " + line + "\n"
+
+    return output[:-1:] # remove last \n
 
 def __split_esc_chars(message: str) -> list[str]:
     """
@@ -113,6 +116,6 @@ def __split_esc_chars(message: str) -> list[str]:
 
 print(centered([
     "Hello! my name is Vivaan Singhvi.",
-    "Vivaan.",
+    "Vivaan",
     "Currently doing nothing :)"
 ]))

@@ -74,7 +74,7 @@ def centered(messages: list[str], margin: int = 2) -> str:
             msgs[i] = line  # different kinds of line replacement
 
     # calculate the lengths of each segment
-    lens = [sum([1 if c in __UNIQUE_CHAR_LENGTHS else __UNIQUE_CHAR_LENGTHS[c] for c in line]) for line in msgs]
+    lens = [sum([1 if c not in __UNIQUE_CHAR_LENGTHS else __UNIQUE_CHAR_LENGTHS[c] for c in line]) for line in msgs]
     max_len = max(lens)
 
     # prints lines and adds whitespace
@@ -110,3 +110,9 @@ def __split_esc_chars(message: str) -> list[str]:
             i += 1
         
     return char_list
+
+print(centered([
+    "Hello! my name is Vivaan Singhvi.",
+    "Vivaan.",
+    "Currently doing nothing :)"
+]))

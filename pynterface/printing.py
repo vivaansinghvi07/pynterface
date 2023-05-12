@@ -56,15 +56,17 @@ def smooth_print(message: Any, delay: int = 25, end: str = "\n") -> None:
     # prints the end (optional)
     print(end, end="")
 
-def centered(messages: list[str], margin: int = 2) -> str:
+def centered(message: str | Iterable[str], margin: int = 2) -> str:
     """
     Centers several lines of text.
     """
     
-    assert isinstance(messages, Iterable), "Messages must be iterable."
+    assert isinstance(message, (str, Iterable)), "Messages must be iterable."
     assert isinstance(margin, int), "Margin must be an integer."
 
-    msgs = copy(messages)
+    # splits depending on the types
+    if isinstance(message, str): msgs = message.split("\n")
+    else: msgs = [*message]
 
     # preprocessing to split newlines into two and remove forbidden characters
     for i in range(len(msgs)-1, -1, -1):
@@ -84,7 +86,7 @@ def centered(messages: list[str], margin: int = 2) -> str:
 
     # adds lines and adds whitespace
     for line, ln in zip(msgs, lens):
-        output += (margin + (max_len-ln)//2) * " " + "".join(line) + "\n"
+        output += (margin + (max_len-ln)//2) * " " + "".join(line) + (margin + (max_len-ln) - (max_len-ln)//2) * " " + "\n"
 
     return output[:-1:] # remove last \n
 

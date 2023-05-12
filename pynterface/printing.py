@@ -10,8 +10,9 @@ TODO:
 import os
 import re
 from copy import deepcopy as copy
-from typing import Any, Iterable
+from typing import Any, Iterable, Tuple
 from time import sleep
+from pynterface.style import Color
 
 # \033[ followed by a combo of numbers and ; ended with a single letter
 __ANSI_PATTERN = "\033\[[0-9|;]*[a-z|A-Z]"
@@ -67,11 +68,13 @@ def centered(messages: list[str], margin: int = 2) -> str:
 
     # preprocessing to split newlines into two and remove forbidden characters
     for i in range(len(msgs)-1, -1, -1):
-        line = re.sub(__CENTERED_FORBIDDEN_CHARS, '', msgs[i]).strip()  # remove forbidden characters and strip whitespace
+        line = re.sub(__CENTERED_FORBIDDEN_CHARS, '', msgs[i])  # remove forbidden characters and strip whitespace
         if "\n" in line:
             msgs = msgs[0:i] + line.split('\n') + msgs[i+1:]
         else:
             msgs[i] = line  # different kinds of line replacement
+
+    msgs = [line.strip() for line in msgs]
 
     # calculate the lengths of each segment
     lens = [sum([__get_effective_len(c) for c in line]) for line in msgs]
@@ -126,8 +129,25 @@ def __split_esc_chars(message: str) -> list[str]:
         
     return char_list
 
-print(centered([
-    "Hello! my name is Vivaan Singhvi.",
-    "Vivaan",
-    "Currently doing nothing :)"
-]))
+def horizontal_gradient(message: str, left_rgb: tuple[int, int, int], right_rgb: tuple[int, int, int]) -> str:
+    """
+    Returns a string with the gradient applied.
+    """
+
+    assert all([0 <= color <= 255 for color in left_rgb+right_rgb]), "Invalid RGB number entered."
+    assert len(left_rgb) == len(right_rgb) == 3, "Tuple with RGB values must have a length of 3." 
+    assert isinstance(message, (str, Iterable)), "Message must be a string or a list of strings representing newlines."
+    
+    def get_value(a, b, i, n):
+        return a + round((b-a)*(i/n))
+    
+    # splits depending on the types
+    if isinstance(message, str): messages = message.split("\n")
+    else: messages = [*message]
+
+    messages = [line.strip() for line in messages]
+    max_len = max([len(s) for s in messages]) - 1
+    rgb_vals = [tuple([get_value(left_rgb[ii], right_rgb[ii], i, max_len) for ii in range(3)]) for i in range(max_len+1)]
+    output = "\n".join(["".join([Color.RGB(rgb_vals[i]) + line[i] for i in range(len(line))]) for line in messages])
+
+    return output

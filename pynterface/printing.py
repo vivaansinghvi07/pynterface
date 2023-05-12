@@ -74,7 +74,7 @@ def centered(messages: list[str], margin: int = 2) -> str:
         else:
             msgs[i] = line  # different kinds of line replacement
 
-    msgs = [line.strip() for line in msgs]
+    msgs = [__split_esc_chars(line.strip()) for line in msgs]
 
     # calculate the lengths of each segment
     lens = [sum([__get_effective_len(c) for c in line]) for line in msgs]
@@ -84,7 +84,7 @@ def centered(messages: list[str], margin: int = 2) -> str:
 
     # adds lines and adds whitespace
     for line, ln in zip(msgs, lens):
-        output += (margin + (max_len-ln)//2) * " " + line + "\n"
+        output += (margin + (max_len-ln)//2) * " " + "".join(line) + "\n"
 
     return output[:-1:] # remove last \n
 
@@ -148,7 +148,7 @@ def horizontal_gradient(message: str, left_rgb: tuple[int, int, int], right_rgb:
     if isinstance(message, str): messages = message.split("\n")
     else: messages = [*message]
 
-    messages = [__split_esc_chars(line.strip()) for line in messages]
+    messages = [__split_esc_chars(line) for line in messages]
     max_len = max([len(s) for s in messages]) - 1
     rgb_vals = [tuple([get_value(left_rgb[ii], right_rgb[ii], i, max_len) for ii in range(3)]) for i in range(max_len+1)]
     output = f"{method.RESET_COLOR if method == Color else method.RESET_BACKGROUND}\n".join(

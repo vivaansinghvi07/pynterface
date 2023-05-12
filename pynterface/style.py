@@ -83,17 +83,17 @@ class Background:
     CYAN_BRIGHT =      "\033[106m"
     WHITE_BRIGHT =     "\033[107m"
 
-    def RGB(r: int, g: int, b: int) -> str:
+    def RGB(rgb: tuple[int, int, int]) -> str:
 
         """
         Returns the ANSI escape code for a background color in RGB.
         """
 
-        for var in [r, g, b]:
+        for var in rgb:
             assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
-        return f"\033[48;2;{r};{g};{b}m"
+        return f"\033[48;2;{rgb[0]};{rgb[1]};{rgb[2]}m"
     
-    def SET(name: str, rgb: tuple) -> None:
+    def SET(name: str, rgb: tuple[int, int, int]) -> None:
 
         """
         Sets a custom background color given its name and a tuple containing (r, g, b) values.
@@ -101,7 +101,7 @@ class Background:
         """
 
         assert isinstance(name, str), "Name must be a string!"
-        setattr(Background, name, Background.RGB(r=rgb[0], g=rgb[1], b=rgb[2]))
+        setattr(Background, name, Background.RGB(rgb))
 
 class Color:
 
@@ -130,17 +130,17 @@ class Color:
     CYAN_BRIGHT =      "\033[96m"
     WHITE_BRIGHT =     "\033[97m"
 
-    def RGB(r: int, g: int, b: int) -> str:
+    def RGB(rgb: tuple[int, int, int]) -> str:
 
         """
         Returns the ANSI escape code for a text color in RGB.
         """
 
-        for var in [r, g, b]:
-            assert isinstance (var, int) and 0 <= var <= 256, "Invalid RGB value!"
-        return f"\033[38;2;{r};{g};{b}m"
+        for var in rgb:
+            assert isinstance(var, int) and 0 <= var <= 256, "Invalid RGB value!"
+        return f"\033[38;2;{rgb[0]};{rgb[1]};{rgb[2]}m"
     
-    def SET(name: str, rgb: tuple) -> None:
+    def SET(name: str, rgb: tuple[int, int, int]) -> None:
 
         """
         Sets a custom text color given its name and a tuple containing (r, g, b) values.
@@ -148,7 +148,7 @@ class Color:
         """
 
         assert isinstance(name, str), "Name must be a string!"
-        setattr(Color, name, Color.RGB(r=rgb[0], g=rgb[1], b=rgb[2]))
+        setattr(Color, name, Color.RGB(rgb))
 
 def demo():
 
@@ -172,8 +172,8 @@ def demo():
     printing_loop(Text)
 
     # test cases for rgb colors
-    print(f"{Color.RGB(100, 200, 150)}Color.RGB(100, 150, 200){Text.RESET_ALL}")
-    print(f"{Background.RGB(200, 100, 100)}Background.RGB(200, 100, 100){Text.RESET_ALL}")
+    print(f"{Color.RGB((100, 200, 150))}Color.RGB((100, 150, 200)){Text.RESET_ALL}")
+    print(f"{Background.RGB((200, 100, 100))}Background.RGB((200, 100, 100)){Text.RESET_ALL}")
 
     # test cases for setting values
     Color.SET("COOL_BLUE", (100, 150, 200))

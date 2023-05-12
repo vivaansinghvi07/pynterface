@@ -145,7 +145,7 @@ def horizontal_gradient(message: str, left_rgb: tuple[int, int, int], right_rgb:
     if isinstance(message, str): messages = message.split("\n")
     else: messages = [*message]
 
-    messages = [line.strip() for line in messages]
+    messages = [__split_esc_chars(line.strip()) for line in messages]
     max_len = max([len(s) for s in messages]) - 1
     rgb_vals = [tuple([get_value(left_rgb[ii], right_rgb[ii], i, max_len) for ii in range(3)]) for i in range(max_len+1)]
     output = "\n".join(["".join([Color.RGB(rgb_vals[i]) + line[i] for i in range(len(line))]) for line in messages])

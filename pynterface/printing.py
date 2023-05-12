@@ -10,9 +10,9 @@ TODO:
 import os
 import re
 from copy import deepcopy as copy
-from typing import Any, Iterable, Tuple
+from typing import Any, Iterable
 from time import sleep
-from pynterface.style import Color
+from pynterface.style import Color, Background 
 
 # \033[ followed by a combo of numbers and ; ended with a single letter
 __ANSI_PATTERN = "\033\[[0-9|;]*[a-z|A-Z]"
@@ -129,7 +129,7 @@ def __split_esc_chars(message: str) -> list[str]:
         
     return char_list
 
-def horizontal_gradient(message: str, left_rgb: tuple[int, int, int], right_rgb: tuple[int, int, int]) -> str:
+def horizontal_gradient(message: str, left_rgb: tuple[int, int, int], right_rgb: tuple[int, int, int], mode: str = "text") -> str:
     """
     Returns a string with the gradient applied.
     """
@@ -137,9 +137,12 @@ def horizontal_gradient(message: str, left_rgb: tuple[int, int, int], right_rgb:
     assert all([0 <= color <= 255 for color in left_rgb+right_rgb]), "Invalid RGB number entered."
     assert len(left_rgb) == len(right_rgb) == 3, "Tuple with RGB values must have a length of 3." 
     assert isinstance(message, (str, Iterable)), "Message must be a string or a list of strings representing newlines."
-    
-    def get_value(a, b, i, n):
-        return a + round((b-a)*(i/n))
+    assert mode in ["text", "background"], "Invalid mode."
+
+    def get_value(a, b, i, n): return a + round((b-a)*(i/n))
+
+    if mode == "text": method = Color
+    elif mode == "background": method = Background
     
     # splits depending on the types
     if isinstance(message, str): messages = message.split("\n")
@@ -148,6 +151,8 @@ def horizontal_gradient(message: str, left_rgb: tuple[int, int, int], right_rgb:
     messages = [__split_esc_chars(line.strip()) for line in messages]
     max_len = max([len(s) for s in messages]) - 1
     rgb_vals = [tuple([get_value(left_rgb[ii], right_rgb[ii], i, max_len) for ii in range(3)]) for i in range(max_len+1)]
-    output = "\n".join(["".join([Color.RGB(rgb_vals[i]) + line[i] for i in range(len(line))]) for line in messages])
+    output = f"{method.RESET_COLOR if method == Color else method.RESET_BACKGROUND}\n".join(
+        ["".join([method.RGB(rgb_vals[i]) + line[i] for i in range(len(line))]) for line in messages]
+    )
 
     return output

@@ -17,6 +17,13 @@ You can import this module using:
     # import individual classes
     from pynterface.style import Color, Background, Text 
 
+For a quick demonstration of the different presets supported, you can call the following:
+
+.. code:: python
+
+    from pynterface.style import demo
+    demo()  # prints presets and the ways to call them
+
 Preset Options
 --------------
 

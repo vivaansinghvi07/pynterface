@@ -1,4 +1,5 @@
 # Configuration file for the Sphinx documentation builder.
+import pynterface
 
 # -- Project information
 
@@ -6,8 +7,8 @@ project = 'Pynterface'
 copyright = '2023, Vivaan Singhvi'
 author = 'Vivaan Singhvi'
 
-release = '1.0'
-version = '1.0.0'
+release = pynterface.__version__[0:3]
+version = pynterface.__version__
 
 # -- General configuration
 

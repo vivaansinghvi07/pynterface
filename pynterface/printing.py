@@ -2,7 +2,7 @@ import os
 import re
 from typing import Any, Iterable
 from time import sleep
-from pynterface.style import Color, Background 
+from .styles import Color, Background 
 
 # \033[ followed by a combo of numbers and ; ended with a single letter
 __ANSI_PATTERN = "\033\[[0-9|;]*[a-z|A-Z]"

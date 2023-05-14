@@ -1,6 +1,7 @@
 # Pynterface
 
 [![PyPi Version](https://badgen.net/pypi/v/pynterface/)](https://pypi.org/project/pynterface)
+[![Documentation Status](https://readthedocs.org/projects/pynterface/badge/?version=latest)](https://pynterface.readthedocs.io/en/latest/?badge=latest)
 
 A module to deal with terminal-based input and output! This package is available on PyPI [here](https://pypi.org/project/pynterface/).
 

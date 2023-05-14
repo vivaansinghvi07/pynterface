@@ -177,7 +177,7 @@ def demo():
 
     # test cases for setting values
     Color.SET("COOL_BLUE", (100, 150, 200))
-    print(f"{Color.COOL_BLUE}This is a custom color!")
+    print(f"{Color.COOL_BLUE}Color.SET(\"COOL_BLUE\", (100, 150, 200)); Color.COOL_BLUE")
 
 if __name__ == "__main__":
     demo()

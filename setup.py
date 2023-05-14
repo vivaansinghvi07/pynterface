@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
     description = f.read()
 
 setup(
-    name=pynterface.__name__,
+    name="pynterface",
     version=pynterface.__version__,
     author=pynterface.__author__,
     author_email='singhvi.vivaan@gmail.com',
@@ -17,6 +17,6 @@ setup(
     python_requires='>=3.8',
     include_package_data=True,
     project_urls={
-        "Documentation": "https://unisci.readthedocs.io/en/latest/"
+        "Documentation": "https://pynterface.readthedocs.io/en/latest/"
     }
 )

@@ -7,6 +7,6 @@ __author__ = "Vivaan Singhvi"
 
 from .menu import *
 from .input import *
-from .styles import *
+from .style import *
 from .loading import *
 from .printing import *

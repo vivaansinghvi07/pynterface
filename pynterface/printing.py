@@ -1,12 +1,3 @@
-"""
-TODO:
-- Smooth print
-- Rainbow text
-- Align to center
-- Hide cursor, show cursor
-- Gradient
-"""
-
 import os
 import re
 from typing import Any, Iterable

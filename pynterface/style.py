@@ -161,7 +161,7 @@ def demo():
         for name in dir(var):
             if name[0] != "_" and sum([kw in name for kw in ["RESET", "RGB", "SET", "CURSOR"]]) == 0:
                 modifier = getattr(var, name)
-                print(f"{modifier}{name}{var.RESET_ALL}")
+                print(f"{modifier}{var.__name__}.{name}{var.RESET_ALL}")
 
     # test cases for normal color properties
     print(f"{Text.BOLD}Colors:{Text.RESET_STYLE}")

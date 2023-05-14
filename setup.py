@@ -1,11 +1,12 @@
 from setuptools import setup, find_packages
+from pynterface import __version__
 
 with open("README.md", "r") as f:
     description = f.read()
 
 setup(
     name='pynterface',
-    version='1.0.0',
+    version=__version__,
     author='Vivaan Singhvi',
     author_email='singhvi.vivaan@gmail.com',
     description='Terminal-Based Printing Tools!',

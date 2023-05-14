@@ -131,7 +131,7 @@ def __split_esc_chars(message: str) -> list[str]:
         
     return char_list
 
-def horizontal_gradient(message: str, left_rgb: tuple[int, int, int], right_rgb: tuple[int, int, int], mode: str = "text") -> str:
+def horizontal_gradient(message: str, left_rgb: tuple[int, int, int], right_rgb: tuple[int, int, int], mode: str = "background") -> str:
     """
     Returns a string with the gradient applied.
     """

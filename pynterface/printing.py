@@ -140,8 +140,10 @@ def gradient(message: str, left_rgb: tuple[int, int, int], right_rgb: tuple[int,
     assert isinstance(message, (str, Iterable)), "Message must be a string or a list of strings representing newlines."
     assert mode in ["text", "background"], "Invalid mode."
 
-    def get_value(a, b, i, n): return a + round((b-a)*(i/n))
+    # tune hte rgb value depending on progress in the line: a and b are start and end values, i is the progress, and n is the max count.
+    def get_value(a, b, i, n): return a + round((b-a)*(i/n))  
 
+    # filter mode
     if mode == "text": method = Color
     elif mode == "background": method = Background
     
@@ -152,8 +154,8 @@ def gradient(message: str, left_rgb: tuple[int, int, int], right_rgb: tuple[int,
     messages = [__split_esc_chars(line) for line in messages]
     max_len = max([len(s) for s in messages]) - 1
     rgb_vals = [tuple([get_value(left_rgb[ii], right_rgb[ii], i, max_len) for ii in range(3)]) for i in range(max_len+1)]
-    output = f"{method.RESET_COLOR if method == Color else method.RESET_BACKGROUND}\n".join(
-        ["".join([method.RGB(rgb_vals[i]) + line[i] for i in range(len(line))]) for line in messages]
+    output = f"{method.RESET_COLOR if method == Color else method.RESET_BACKGROUND}\n".join(            # joins the lines by a reset color/background
+        ["".join([method.RGB(rgb_vals[i]) + line[i] for i in range(len(line))]) for line in messages]   # creates the line
     )
 
     return output

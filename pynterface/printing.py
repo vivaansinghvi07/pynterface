@@ -9,7 +9,6 @@ TODO:
 
 import os
 import re
-from copy import deepcopy as copy
 from typing import Any, Iterable
 from time import sleep
 from pynterface.style import Color, Background 

@@ -11,3 +11,4 @@ Contents
 
     usage
     documentation
+    versionhistory

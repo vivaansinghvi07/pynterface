@@ -1,10 +1,14 @@
+"""
+This part of the module holds programs that helps getting user input through menus.
+"""
+
 from typing import Iterable, Any
 from .input import bounded_int
 
 def __map_to_str(opt):
 
     """
-    Turns the 
+    Turns the variable into a string.
     """
 
     if isinstance(opt, (bool, str, float, int, object)):

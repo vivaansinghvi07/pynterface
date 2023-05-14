@@ -1,3 +1,7 @@
+"""
+Input tools, currently supported getting a bounded integer and a two-dimensional array.
+"""
+
 from typing import Any, Iterable
 
 def bounded_int(lower: int, upper: int, prompt: str = None, 

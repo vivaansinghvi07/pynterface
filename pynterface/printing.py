@@ -1,3 +1,12 @@
+"""
+This part of the module includes useful tools for printing. Currently, the following are supported:
+- Clear screen
+- Clear screen than print message
+- 'Smooth' print a message
+- Center text
+- Apply a gradient to text or background
+"""
+
 import os
 import re
 from typing import Any, Iterable
@@ -121,7 +130,7 @@ def __split_esc_chars(message: str) -> list[str]:
         
     return char_list
 
-def horizontal_gradient(message: str, left_rgb: tuple[int, int, int], right_rgb: tuple[int, int, int], mode: str = "background") -> str:
+def gradient(message: str, left_rgb: tuple[int, int, int], right_rgb: tuple[int, int, int], mode: str = "background") -> str:
     """
     Returns a string with the gradient applied.
     """

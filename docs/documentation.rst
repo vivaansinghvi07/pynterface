@@ -163,3 +163,83 @@ Here is an example:
 
 .. image:: imgs/custom-background-demo.png
     :width: 800
+
+Menu Templates
+++++++++++++++
+
+Import this subsection of the module using the following:
+
+.. code:: python
+
+    import pynterface.menu
+    
+    # for individual menus
+    from pynterface.menu import numbered_menu, list_menu
+    from pynterface import numbered_menu, list_menu
+
+Numbered Menu
+-------------
+
+.. code:: python
+
+    >>> option = numbered_menu(['option_1', 'option_2', 'option_3'])
+        1. option_1
+        2. option_2
+        3. option_3
+    Please enter a number between 1 and 3: 2
+    >>> print(option)
+    option_2
+
+You can call this with the following:
+
+.. code:: python
+
+    numbered_menu(options: Iterable[Any], 
+                  beginning_prompt: str = None, 
+                  selection_prompt: str = None, 
+                  spacing: int = 4, 
+                  return_number: bool = False) -> Any:
+
+The options is an Iterable containing things that either have a :code:`__name__`` attribute or can be converted to strings. By default, values that are :code:`bool, str, float, int, object` are converted to strings using the :code:`str()` function; on anything else the :code:`__name__` method is attempted to be used. Therefore, these can be functions, classes, or even modules.
+
+The beginning prompt is what gets displayed initially, before the menu is shown. By default, nothing is printed.
+
+The selection prompt is what is printed to prompt the user to choose a number. By default, it is "Please enter a number between <lower> and <upper>".
+
+The spacing is the indentation for each option. It is set to 4 by default.
+
+If return_number is True, the returned value will be the chosen number, rather than the option. Otherwise, it will return the option that was chosen.
+
+List Menu
+---------
+
+.. code:: python
+
+    >>> option = list_menu([int, float, str])
+        - int
+        - float
+        - str
+    Enter your choice: float
+    >>> print(option)
+    <class 'float'>
+
+You can call this using the following:
+
+.. code:: python 
+
+    list_menu(options: Iterable[Any], 
+              beginning_prompt: str = None, 
+              selection_prompt: str = "Enter your choice: ",
+              error_prompt: str = "Invalid choice, enter a valid one: ",
+              spacing: int = 4, 
+              selector: str = '-') -> Any:
+
+The options and beginning prompt are used in the same manner as they are in the numbered list just above.
+
+The selection prompt is, again, what is displayed to obtain a choice. It is defaulted to "Enter your choice: ".
+
+The error prompt is what is printed when an invalid name is entered.
+
+The spacing is the margin of the list, defaulted to 4.
+
+The selector is the thing that indicates each option, like bullets in a bulleted list.

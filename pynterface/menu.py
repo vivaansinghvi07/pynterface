@@ -18,17 +18,6 @@ def __map_to_str(opt):
     except:
         raise AssertionError("Option type unable to be converted to string using __name__.")
 
-def __list_print(prompt: str, spacing: int, str_options: list) -> None:
-    """
-    Prints menu options and beginning prompt.
-    """
-
-    if prompt:
-        print(prompt)
-
-    for index, opt in enumerate(str_options):
-        print(f"{' '*spacing}{index+1}. {opt}")
-
 def numbered_menu(options: Iterable[Any], beginning_prompt: str = None, 
                   selection_prompt: str = None, spacing: int = 4, return_number: bool = False) -> Any:
 
@@ -56,7 +45,11 @@ def numbered_menu(options: Iterable[Any], beginning_prompt: str = None,
 
     str_options = list(map(__map_to_str, options))
 
-    __list_print(prompt=beginning_prompt, spacing=spacing, str_options=str_options)
+    if beginning_prompt:
+        print(beginning_prompt)
+
+    for index, opt in enumerate(str_options):
+        print(f"{' '*spacing}{index+1}. {opt}")
     
     choice = bounded_int(1, len(str_options), prompt=selection_prompt)
 
@@ -95,7 +88,11 @@ def list_menu(options: Iterable[Any], beginning_prompt: str = None,
 
     str_options = list(map(__map_to_str, options))
 
-    __list_print(prompt=beginning_prompt, spacing=spacing, str_options=str_options)
+    if beginning_prompt:
+        print(beginning_prompt)
+
+    for opt in str_options:
+        print(f"{' '*spacing}{selector} {opt}")
 
     choice = input(selection_prompt)
 

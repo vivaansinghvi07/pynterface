@@ -11,7 +11,7 @@ def __map_to_str(opt):
     Turns the variable into a string.
     """
 
-    if isinstance(opt, (bool, str, float, int, object)):
+    if isinstance(opt, (bool, str, float, int)):
         return str(opt)
     try:
         return opt.__name__

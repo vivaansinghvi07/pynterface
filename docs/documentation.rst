@@ -243,3 +243,45 @@ The error prompt is what is printed when an invalid name is entered.
 The spacing is the margin of the list, defaulted to 4.
 
 The selector is the thing that indicates each option, like bullets in a bulleted list.
+
+Input Methods
++++++++++++++
+
+Import this subsection of the module using the following:
+
+.. code:: python
+
+    import pynterface.input
+    
+    # for individual menus
+    from pynterface.input import bounded_int, two_dim_array
+    from pynterface import bounded_int, two_dim_array 
+
+Bounded Integer
+---------------
+
+.. code:: python
+
+    >>> option = bounded_int(lower=2, upper=9)
+    Please enter a number between 2 and 9: 10
+    The number must be between 2 and 9: no
+    You must enter an integer: 7
+    >>> option
+    7
+
+.. code:: python
+
+    bounded_int(lower: int, 
+                upper: int, 
+                prompt: str = None, 
+                type_error: str = None, 
+                bounds_error: str = None) -> int:
+
+:code:`lower` and :code:`upper` are the lower and upper bounds for the integer, both inclusive.
+
+The :code:`prompt` is what asks for the user input, and is defaulted to "Please enter a number between <lower> and <upper>: ".
+
+The :code:`type_error` is what is printed when the number cannot eb converted to an integer. It is defaulted to "You must enter an integer: ".
+
+The :code:`bounds_error` is what is printed when a number is out of bounds. It is defaulted to "The number must be between <lower> and <upper>: ".
+

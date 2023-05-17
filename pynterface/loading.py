@@ -5,6 +5,7 @@ This version supports customizable cycling as well as default classes for quick 
 from __future__ import annotations
 from threading import Thread
 from time import sleep
+from sys import stdout
 
 class Loader():
     
@@ -82,6 +83,7 @@ class Loader():
         self.__clear_animated()
         self.prev_length = len(item)
         print("\r" + self.message + item, end="")
+        stdout.flush()
 
     def __enter__(self) -> Loader:
         self.runner = Thread(target=self.__run)

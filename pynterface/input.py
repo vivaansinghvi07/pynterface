@@ -2,10 +2,11 @@
 Input tools, currently supported getting a bounded integer and a two-dimensional array.
 """
 
-from typing import Any, Iterable
+from typing import Any
 
 def bounded_int(lower: int, upper: int, prompt: str = None, 
-                type_error: str = None, bounds_error: str = None) -> int:
+                type_error: str = "You must enter an integer: ", 
+                bounds_error: str = None) -> int:
     """
     Forces the user to return an integer between the two entered values.
 
@@ -22,9 +23,6 @@ def bounded_int(lower: int, upper: int, prompt: str = None,
 
     if not prompt:
         prompt = f"Please enter a number between {lower} and {upper}: "
-
-    if not type_error:
-        type_error = "You must enter an integer: "
 
     if not bounds_error:
         bounds_error = f"The number must be between {lower} and {upper}: "
@@ -63,7 +61,7 @@ def two_dim_array(rows: int, cols: int = None, delimiter: str = " ", item_type: 
         if delimiter == "":
             items = list(row)   # splits string into char array
         else:
-            items = row.split(delimiter)    # otherwise split by the delimiter  
+            items = [item for item in row.split(delimiter) if item != '']    # otherwise split by the delimiter  
         assert cols == None or (cols != None and len(items) == cols), "Column count parameter and items in the row do not match."
         output.append(list(map(item_type, items)))
 

@@ -6,8 +6,8 @@ project = 'Pynterface'
 copyright = '2023, Vivaan Singhvi'
 author = 'Vivaan Singhvi'
 
-release = "0.0"
-version = "0.0.4"
+release = "0.1"
+version = "0.1.0"
 
 # -- General configuration
 

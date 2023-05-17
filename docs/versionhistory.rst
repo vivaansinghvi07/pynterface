@@ -8,3 +8,4 @@ Here is a chronological list of version updates for this module:
     * v0.0.2: Menu fix
     * v0.0.3: Object-to-string fix
     * v0.0.4: Added stdout flushing for loaders
+* v0.1.0: Change how loaders work for compatability wiht Jupyter Notebooks

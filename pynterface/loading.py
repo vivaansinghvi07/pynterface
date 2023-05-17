@@ -31,7 +31,7 @@ class Loader():
         self.max_len = max([len(item) for item in cycle])
 
         # stores customization values
-        self.cycle = cycle
+        self.cycle = [item + " " * (self.max_len - len(item)) for item in cycle]
         self.message = message
         self.delay = delay / 1000
         self.hide_cursor = hide_cursor
@@ -39,9 +39,6 @@ class Loader():
         # temporary null value 
         self.runner = None
 
-        # stores values for going back and clearing
-        self.prev_length = len(self.cycle[0]) 
-        
         # for cycling
         self.mod = len(cycle)
         self.index = 0
@@ -81,7 +78,6 @@ class Loader():
         Clears and displays the message.
         """
         self.__clear_animated()
-        self.prev_length = len(item)
         print("\r" + self.message + item, end="")
         stdout.flush()
 
@@ -123,9 +119,9 @@ class Loader():
         """
         Clears the animated thing.
         """
-        print("\b" * self.prev_length 
-              + " " * self.prev_length 
-              + "\b" * self.prev_length, end="")
+        print("\b" * self.max_len 
+              + " " * self.max_len 
+              + "\b" * self.max_len, end="")
 
     def __clear(self):
         """

@@ -66,3 +66,26 @@ def two_dim_array(rows: int, cols: int = None, delimiter: str = " ", item_type: 
         output.append(list(map(item_type, items)))
 
     return output
+
+def yes_no(prompt: str, error_prompt: str = "Invalid choice; enter a proper form of yes or no: ") -> bool:
+    """
+
+    Here are the possible inputs: 
+
+    >>> yes = ['yes', 'y', '1']
+    >>> no = ['no', 'n', '0']
+
+    Arguments: A prompt for the option and an optional error prompt for invalid choices.
+
+    Returns: A boolean, True if 'yes' or False if 'no'
+    """
+
+    yes = ['yes', 'y', '1']
+    no = ['no', 'n', '0']
+
+    choice = input(prompt).lower()
+    
+    while choice not in yes+no:
+        choice = input(error_prompt).lower()
+
+    return choice in yes

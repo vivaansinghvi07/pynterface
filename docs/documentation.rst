@@ -309,3 +309,30 @@ Two-Dimensional Array
 :code:`delimiter` is the thing that seperates each item in a row. You can enter :code:`''` as a delimeter if you want to seperate characters in a string. 
 
 :code:`item_type` is the type of each element. You can pass in things like :code:`int` or :code:`float` to automatically convert each item.
+
+Yes/No Input
+------------
+
+.. code:: python
+
+    >>> ans = yes_no("Yes or no? ")
+    Yes or no? Okay
+    Invalid choice; enter a proper form of yes or no: Yes 
+    >>> ans
+    True
+
+.. code:: python
+
+    yes_no(prompt: str, 
+           error_prompt: str = "Invalid choice; enter a proper form of yes or no: ") -> bool:
+
+The supported options for yes and no respectively are shown below:
+
+.. code:: python
+
+    yes = ['yes', 'y', '1']
+    no = ['no', 'n', '0']
+
+:code:`prompt` is what you enter as the prompt for your input.
+
+:code:`error_prompt` is what is printed when an invalid choice in entered, prompting the user for another choice.

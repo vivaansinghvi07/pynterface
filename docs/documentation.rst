@@ -275,7 +275,7 @@ Bounded Integer
                 upper: int, 
                 prompt: str = None, 
                 type_error: str = None, 
-                bounds_error: str = None) -> int:
+                bounds_error: str = None) -> int
 
 :code:`lower` and :code:`upper` are the lower and upper bounds for the integer, both inclusive.
 
@@ -285,3 +285,27 @@ The :code:`type_error` is what is printed when the number cannot eb converted to
 
 The :code:`bounds_error` is what is printed when a number is out of bounds. It is defaulted to "The number must be between <lower> and <upper>: ".
 
+Two-Dimensional Array
+---------------------
+
+.. code:: python
+
+    >>> from pynterface import two_dim_array
+    >>> arr = two_dim_array(rows=2, cols=3, item_type=int)
+    3 5 1
+    4 7 21
+    >>> arr
+    [[3, 5, 1], [4, 7, 21]]
+
+.. code:: python
+
+    two_dim_array(rows: int, 
+                  cols: int = None, 
+                  delimiter: str = " ", 
+                  item_type: int = str) -> list[list[Any]]
+
+:code:`rows` and :code:`cols` represent the rows and columns of the 2d array respectively. If you leave columns as blank, there will be no checking for accurately sized columns.
+
+:code:`delimiter` is the thing that seperates each item in a row. You can enter :code:`''` as a delimeter if you want to seperate characters in a string. 
+
+:code:`item_type` is the type of each element. You can pass in things like :code:`int` or :code:`float` to automatically convert each item.

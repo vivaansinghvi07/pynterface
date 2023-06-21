@@ -11,3 +11,4 @@ Here is a chronological list of version updates for this module:
 * v0.1.0: Changed how loaders work for compatability wiht Jupyter Notebooks
     * v0.1.1: Minor changes and fixes
 * v0.2.0: Added yes/no input
+    * v0.2.1: Bug fix to :code:`bounded_int()` function

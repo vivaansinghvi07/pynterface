@@ -38,7 +38,7 @@ def bounded_int(lower: int, upper: int, prompt: str = None,
                 flag_type_error = False
             else:
                 user_input = int(input(bounds_error))
-        except:
+        except ValueError:
             user_input = lower - 1      # reset to a set out of bounds value
             flag_type_error = True
 

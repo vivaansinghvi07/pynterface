@@ -6,7 +6,7 @@
 A module to deal with terminal-based input and output! This package is available on PyPI [here](https://pypi.org/project/pynterface/).
 
 ## Why Use This?
-This package has many features that helps make coding user inputs easier and terminal outputs more pretty. You can do many things with either regard, with one line!
+This package has many features that help make implementing user inputs easier and terminal outputs much cleaner. You can do many things with either regard, usually with a single line!
 
 ## Installation 
 To install, simply run the following:

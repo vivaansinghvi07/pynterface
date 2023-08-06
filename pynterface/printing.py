@@ -151,11 +151,15 @@ def gradient(message: str, left_rgb: tuple[int, int, int], right_rgb: tuple[int,
     if isinstance(message, str): messages = message.split("\n")
     else: messages = [*message]
 
+    # get the method rest
+    reset_code = method.RESET_COLOR if method == Color else method.RESET_BACKGROUND
+
+    # perform gradient calculations
     messages = [__split_esc_chars(line) for line in messages]
     max_len = max([len(s) for s in messages]) - 1
     rgb_vals = [tuple([get_value(left_rgb[ii], right_rgb[ii], i, max_len) for ii in range(3)]) for i in range(max_len+1)]
-    output = f"{method.RESET_COLOR if method == Color else method.RESET_BACKGROUND}\n".join(            # joins the lines by a reset color/background
+    output = f"{reset_code}\n".join(            # joins the lines by a reset color/background
         ["".join([method.RGB(rgb_vals[i]) + line[i] for i in range(len(line))]) for line in messages]   # creates the line
     )
 
-    return output
+    return output + reset_code

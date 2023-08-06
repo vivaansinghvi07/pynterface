@@ -9,7 +9,7 @@ This part of the module includes useful tools for printing. Currently, the follo
 
 import os
 import re
-from typing import Any, Iterable
+from typing import Any, Iterable, Union
 from time import sleep
 from .style import Color, Background 
 
@@ -55,7 +55,7 @@ def smooth_print(message: Any, delay: int = 25, end: str = "\n") -> None:
     # prints the end (optional)
     print(end, end="")
 
-def centered(message: str | Iterable[str], margin: int = 2) -> str:
+def centered(message: Union[str, Iterable[str]], margin: int = 2) -> str:
     """
     Centers several lines of text.
     """

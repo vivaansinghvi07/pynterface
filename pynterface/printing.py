@@ -50,7 +50,7 @@ def smooth_print(message: Any, delay: int = 25, end: str = "\n") -> None:
     for char in chars:
         if re.search(__ANSI_PATTERN, message) == None:    # delay only if ansi
             sleep(delay/1000)       
-        print(char, end="")
+        print(char, end="", flush=True)
         
     # prints the end (optional)
     print(end, end="")

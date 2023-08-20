@@ -2,7 +2,7 @@
 A python module for dealing with terminal-based inputs and outputs.
 """
 
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 __author__ = "Vivaan Singhvi"
 
 from .menu import *

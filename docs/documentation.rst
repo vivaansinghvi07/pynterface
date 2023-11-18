@@ -4,7 +4,7 @@ Documentation
 Here is the documentation for Pynterface!
 
 Text Styling and Coloring
-+++++++++++++++++++++++++
+=========================
 
 This is simply an alternative to `colorama <https://github.com/tartley/colorama>`, which I attempted to replicate, for fun, with this part of the package! It includes the additional ability to set custom RGB values, or custom colors with custom RGB values.
 
@@ -165,7 +165,7 @@ Here is an example:
     :width: 800
 
 Menu Templates
-++++++++++++++
+==============
 
 Import this subsection of the module using the following:
 
@@ -245,7 +245,7 @@ The spacing is the margin of the list, defaulted to 4.
 The selector is the thing that indicates each option, like bullets in a bulleted list.
 
 Input Methods
-+++++++++++++
+=============
 
 Import this subsection of the module using the following:
 
@@ -336,3 +336,119 @@ The supported options for yes and no respectively are shown below:
 :code:`prompt` is what you enter as the prompt for your input.
 
 :code:`error_prompt` is what is printed when an invalid choice in entered, prompting the user for another choice.
+
+
+Output Methods
+==============
+
+
+Import this subsection of the module using the following:
+
+.. code:: python
+
+    import pynterface.printing
+    
+    # for individual menus
+    from pynterface.printing import clear_window, clear_print, smooth_print, centered, gradient
+    from pynterface import clear_window, clear_print, smooth_print, centered, gradient
+
+Clear Window 
+------------
+
+.. code:: python
+
+    >>> clear_window()
+
+Simply clears the terminal screen. This is the same as calling :code:`os.system('clear')` but is consistent throughout operating systems.
+
+Clear Print 
+-----------
+
+.. code:: python
+
+    >>> message = "Hello world"
+    >>> clear_print(message)
+    Hello world
+
+.. code:: python
+
+    clear_print(message: Any, **print_kwargs) -> None
+
+Clears the screen and prints a message onto the empty canvas. This is the same as calling :code:`clear_window` and then calling :code:`print`.
+
+:code:`message` is what you want to print - it can be anything, as it is directly passed into the builtin :code:`print` function. 
+
+:code:`print_kwargs` are keyword arguments that also get passed directly into the builtin :code:`print` function.
+
+Smooth Print 
+------------ 
+
+.. code:: python
+
+    >>> message = "Hello world"
+    >>> smooth_print(message, delay_ms=50)
+    Hello world
+
+.. code:: python
+
+   smooth_print(message: str,
+                delay_ms: float = 25,
+                end: str = "\n") -> None
+
+Prints text as a smooth stream, waiting each time a character is printed.
+
+:code:`message` is the message to be printed.
+
+:code:`delay_ms` is the delay between each character being printed, in milliseconds.
+
+:code:`end` is the character printed at the end of everything being printed, and is :code:`"\n"` by default like the builtin :code:`print` function.
+
+Centered 
+--------
+
+.. code:: python
+
+   >>> message = "Hello world\nThis is a Python Program"
+   >>> print(centered(message))
+            Hello world
+      This is a Python Program
+
+.. code:: python 
+
+   centered(message: Union[str, Iterable[str]],
+            margin: int = 2) -> str
+
+Outputs a string, which a piece of text that, when printed, is centered.
+
+:code:`message` is the string you want to be centered. It can also be a list of strings, which are each split into their respective lines. 
+
+:code:`margin` is the margin of space the left side of the text being printed.
+
+Horizontal Gradient 
+-------------------
+
+.. code:: python 
+    
+    >>> __author__ = "Vivaan Singhvi"
+    >>> __version__ = "0.2.3" 
+    >>> message = ["Welcome to Pynterface!", f"Author: {__author__}", "", f"Version:{__version__}", ""]
+    >>> centered = centered(message)  # pynterface's centered function
+    >>> print(gradient(centered, (0, 150, 0), (0, 0, 150)))
+
+.. image:: imgs/gradient-demo.png
+    :width: 300
+
+.. code:: python
+
+   gradient(message: str, 
+            left_rgb: tuple[int, int, int], 
+            right_rgb: tuple[int, int, int], 
+            mode: str = "background") -> str
+
+Prints the given text with a horizontal gradient background between two RGB bounds.
+
+:code:`message` is the message that needs to be printed.
+
+:code:`left_rgb` is the color on the left side of the text.
+
+:code:`right_rgb` is the color on the right side of the text.

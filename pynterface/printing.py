@@ -14,7 +14,7 @@ from time import sleep
 from .style import Color, Background 
 
 # \033[ followed by a combo of numbers and ; ended with a single letter
-__ANSI_PATTERN = "\033\[[0-9|;]*[a-z|A-Z]"
+__ANSI_PATTERN = r"\033\[[0-9|;]*[a-z|A-Z]"
 __CENTERED_FORBIDDEN_CHARS = "[\t]"
 __UNIQUE_CHAR_LENGTHS = {
     "\b": -1

@@ -29,14 +29,14 @@ def clear_window() -> None:
     else:
         os.system("clear")
 
-def clear_print(message: Any, end: str = "\n") -> None:
+def clear_print(message: Any, **print_kwargs) -> None:
     """
     Clears the terminal window and prints the prompt.
     """
     clear_window()
-    print(message, end=end)
+    print(message, **print_kwargs)
 
-def smooth_print(message: Any, delay: int = 25, end: str = "\n") -> None:
+def smooth_print(message: Any, delay_ms: int = 25, end: str = "\n") -> None:
     """
     Prints a message, smoothly.
 
@@ -49,7 +49,7 @@ def smooth_print(message: Any, delay: int = 25, end: str = "\n") -> None:
     # prints each character with a delay
     for char in chars:
         if re.search(__ANSI_PATTERN, message) == None:    # delay only if ansi
-            sleep(delay/1000)       
+            sleep(delay_ms/1000)       
         print(char, end="", flush=True)
         
     # prints the end (optional)
